@@ -19,6 +19,9 @@ Metrics/PerceivedComplexity:
 Style/Documentation:
   Enabled: false
 
+Style/IfUnlessModifier:
+  Enabled: false
+
 Style/NumericLiterals:
   Enabled: false
 
