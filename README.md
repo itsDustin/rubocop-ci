@@ -10,7 +10,9 @@ Add this to the development/test group in your Gemfile:
 gem 'rubocop-ci', github: 'ad2games/rubocop-ci'
 ```
 
-Run `bundle exec rake rubocop` before/after your tests on your CI.
+Run `bundle exec rake rubocop` before/after your tests on your CI. 
+
+You can also use this command to run rubocop locally before committing.
 
 ## Changes
 
