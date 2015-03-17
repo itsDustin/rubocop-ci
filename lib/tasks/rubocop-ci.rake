@@ -4,6 +4,7 @@ desc 'Runs rubocop with our custom settings'
 RuboCop::RakeTask.new(:rubocop) do |task|
   config = File.expand_path('../../../rubocop.yml', __FILE__)
 
-  task.options = ['-R', '-c', config]
+  task.options = ['-c', config]
+  task.options << '-R' if defined?(Rails)
   task.patterns = ['{app,config,lib,spec}/**/*.rb']
 end
