@@ -13,4 +13,5 @@ Gem::Specification.new do |s|
   s.license     = ''
 
   s.add_dependency 'rubocop'
+  s.add_dependency 'rubocop-rspec'
 end

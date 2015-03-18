@@ -45,3 +45,6 @@ Style/MultilineBlockChain:
 
 Rails/HasAndBelongsToMany:
   Enabled: false
+
+RSpec/DescribeClass:
+  Enabled: false
