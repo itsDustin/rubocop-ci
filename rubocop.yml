@@ -36,3 +36,9 @@ Style/MultilineOperationIndentation:
 
 Style/FirstParameterIndentation:
   EnforcedStyle: consistent
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/MultilineBlockChain:
+  Enabled: false
