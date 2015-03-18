@@ -5,10 +5,10 @@ Metrics/LineLength:
   Max: 1000
 
 Metrics/ClassLength:
-  Max: 300
+  Max: 350
 
 Metrics/MethodLength:
-  Max: 50
+  Max: 60
 
 Metrics/CyclomaticComplexity:
   Max: 20
