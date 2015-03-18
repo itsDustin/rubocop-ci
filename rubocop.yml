@@ -42,3 +42,6 @@ Style/ClassAndModuleChildren:
 
 Style/MultilineBlockChain:
   Enabled: false
+
+Rails/HasAndBelongsToMany:
+  Enabled: false
