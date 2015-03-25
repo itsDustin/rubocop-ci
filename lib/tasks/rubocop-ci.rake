@@ -7,5 +7,4 @@ RuboCop::RakeTask.new(:rubocop) do |task|
   task.options = ['-c', config]
   task.options << '-R' if defined?(Rails)
   task.requires = ['rubocop-rspec']
-  task.patterns = ['{app,config,lib,spec}/**/*.{rb,rake}']
 end
