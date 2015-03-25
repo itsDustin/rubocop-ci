@@ -4,8 +4,9 @@ AllCops:
     - '**/config.ru'
     - '**/*.rake'
   Exclude:
-    - 'bin/*'
+    - 'bin/**/*'
     - 'db/schema.rb'
+    - 'vendor/**/*'
 
 Metrics/AbcSize:
   Max: 75
