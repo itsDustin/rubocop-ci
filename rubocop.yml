@@ -35,9 +35,6 @@ Style/IfUnlessModifier:
 Style/NumericLiterals:
   Enabled: false
 
-Style/TrailingComma:
-  EnforcedStyleForMultiline: comma
-
 Style/AlignParameters:
   EnforcedStyle: with_fixed_indentation
 
