@@ -53,5 +53,11 @@ Style/MultilineBlockChain:
 Rails/HasAndBelongsToMany:
   Enabled: false
 
+Rails/TimeZone:
+  Enabled: false
+
+Rails/Date:
+  Enabled: false
+
 RSpec/DescribeClass:
   Enabled: false
