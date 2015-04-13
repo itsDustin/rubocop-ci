@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
   s.homepage    = 'http://www.ad2games.com'
   s.license     = ''
 
+  s.add_dependency 'rake'
   s.add_dependency 'rubocop'
   s.add_dependency 'rubocop-rspec'
 end
