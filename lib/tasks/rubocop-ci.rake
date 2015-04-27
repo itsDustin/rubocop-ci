@@ -3,7 +3,7 @@ require 'rubocop/rake_task'
 desc 'Runs rubocop with our custom settings'
 RuboCop::RakeTask.new(:rubocop) do |task|
   config = gem_config = File.expand_path('../../../rubocop.yml', __FILE__)
-  todo_config = Rails.root.join('.rubocop_todo.yml')
+  todo_config = "#{Dir.pwd}/.rubocop_todo.yml"
 
   if File.exist?(todo_config)
     tmp = Tempfile.new('rubocop')
