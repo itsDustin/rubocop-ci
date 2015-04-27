@@ -8,7 +8,7 @@ Run `bundle exec rake rubocop` before committing. Do not use the plain `rubocop`
 
 You can also use `bundle exec rake rubocop:auto_correct` to fix most of the issues automatically. Please double check the results before committing!
 
-If your project needs relaxed settings, you can generate a `.rubocop_todo.yml` file using `bundle exec rubocop AUTOGEN=1`.
+If your project needs relaxed settings, you can generate a `.rubocop_todo.yml` file using `bundle exec rake rubocop AUTOGEN=1`.
 
 ## Installation
 
