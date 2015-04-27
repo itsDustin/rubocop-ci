@@ -8,23 +8,8 @@ AllCops:
     - 'db/schema.rb'
     - 'vendor/**/*'
 
-Metrics/AbcSize:
-  Max: 75
-
 Metrics/LineLength:
-  Max: 1000
-
-Metrics/ClassLength:
-  Max: 350
-
-Metrics/MethodLength:
-  Max: 60
-
-Metrics/CyclomaticComplexity:
-  Max: 20
-
-Metrics/PerceivedComplexity:
-  Max: 20
+  Max: 100
 
 Style/Documentation:
   Enabled: false
