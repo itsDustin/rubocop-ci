@@ -17,4 +17,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'rubocop'
   s.add_dependency 'rubocop-rspec'
   s.add_dependency 'scss-lint'
+  s.add_dependency 'coffeelint'
 end
