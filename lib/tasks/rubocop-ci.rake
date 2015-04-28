@@ -20,6 +20,7 @@ RuboCop::RakeTask.new(:rubocop) do |task|
 end
 
 scss_task = File.exists?("#{Dir.pwd}/.skip_scss_lint") ? :scss_lint : :rubocop
-SCSSLint::RakeTask.new(scss_task) do |t|
-  t.config = File.expand_path('../../../scss-lint.yml', __FILE__)
+SCSSLint::RakeTask.new(scss_task) do |task|
+  task.config = File.expand_path('../../../scss-lint.yml', __FILE__)
+  task.files = ['app/assets']
 end
