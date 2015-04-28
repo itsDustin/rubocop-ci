@@ -42,3 +42,17 @@ Rails/Date:
 
 RSpec/DescribeClass:
   Enabled: false
+
+# Enable cops that are inactive by default:
+
+Style/ExtraSpacing:
+  Enabled: true
+
+Style/SymbolArray:
+  Enabled: true
+
+Style/AutoResourceCleanup:
+  Enabled: true
+
+Style/CollectionMethods:
+  Enabled: true
