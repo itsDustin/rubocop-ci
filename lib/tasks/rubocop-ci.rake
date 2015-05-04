@@ -16,7 +16,7 @@ RuboCop::RakeTask.new(:rubocop) do |task|
     config = rubocop_config.path
   end
 
-  task.options = ['-c', config]
+  task.options = ['-D', '-c', config]
   task.options << '-R' if defined?(Rails)
   task.options << '--auto-gen-config' if ENV['AUTOGEN']
   task.requires = ['rubocop-rspec']
