@@ -6,7 +6,7 @@ rubocop_config = nil
 
 desc 'Runs rubocop with our custom settings'
 RuboCop::RakeTask.new(:rubocop) do |task|
-  config = gem_config = File.expand_path('../../../rubocop.yml', __FILE__)
+  config = gem_config = File.expand_path('../../../config/rubocop.yml', __FILE__)
   todo_config = "#{Dir.pwd}/.rubocop_todo.yml"
 
   if File.exist?(todo_config)
@@ -26,12 +26,12 @@ end
 if defined?(Rails)
   scss_task = File.exists?("#{Dir.pwd}/.skip_scss_lint") ? :scss_lint : :rubocop
   SCSSLint::RakeTask.new(scss_task) do |task|
-    task.config = File.expand_path('../../../scss-lint.yml', __FILE__)
+    task.config = File.expand_path('../../../config/scss-lint.yml', __FILE__)
     task.files = ['app/assets']
   end
 
   task :rubocop do
-    config = File.expand_path('../../../coffeelint.json', __FILE__)
+    config = File.expand_path('../../../config/coffeelint.json', __FILE__)
     Coffeelint.run_test_suite('app', config_file: config) || fail('Coffeelint fail!')
   end
 end
