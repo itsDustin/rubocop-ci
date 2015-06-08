@@ -1,6 +1,10 @@
 require 'rubocop/rake_task'
+
 require 'scss_lint/rake_task'
+
 require 'coffeelint'
+
+require 'slim_lint'
 require 'slim_lint/rake_task'
 
 rubocop_config = nil
