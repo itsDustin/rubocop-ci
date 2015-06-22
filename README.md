@@ -22,7 +22,7 @@ you can create a `.skip_scss_lint` file in your project root.
 Add this to the development/test group in your Gemfile:
 
 ```ruby
-gem 'rubocop-ci', github: 'ad2games/rubocop-ci'
+gem 'rubocop-ci', git: 'https://github.com/ad2games/rubocop-ci'
 ```
 
 Run `bundle exec rake rubocop` before/after your tests on your CI.
