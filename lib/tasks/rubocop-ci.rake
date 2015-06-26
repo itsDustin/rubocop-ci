@@ -27,7 +27,7 @@ RuboCop::RakeTask.new(:rubocop) do |task|
   task.requires = ['rubocop-rspec']
 end
 
-if defined?(Rails)
+if Dir.exists?('app')
   scss_task = File.exists?("#{Dir.pwd}/.skip_scss_lint") ? :scss_lint : :rubocop
   SCSSLint::RakeTask.new(scss_task) do |task|
     task.config = File.expand_path('../../../config/scss-lint.yml', __FILE__)
