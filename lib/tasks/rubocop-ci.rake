@@ -41,6 +41,6 @@ if Dir.exists?('app')
 
   SlimLint::RakeTask.new(:rubocop) do |task|
     task.config = File.expand_path('../../../config/slim-lint.yml', __FILE__)
-    task.files = ['app']
+    task.files = ['app', 'spec']
   end
 end
