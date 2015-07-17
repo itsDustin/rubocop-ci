@@ -1,0 +1,18 @@
+{
+    "ecmaFeatures": {
+        "jsx": true
+    },
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "globals": {
+        "React": false,
+        "_": false,
+        "$": false
+    },
+    "rules": {
+        "strict": 0,
+        "curly": [2, "multi-line"]
+    }
+}
