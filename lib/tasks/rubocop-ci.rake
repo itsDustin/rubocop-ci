@@ -7,6 +7,8 @@ require 'coffeelint'
 require 'slim_lint'
 require 'slim_lint/rake_task'
 
+require 'eslint'
+
 rubocop_config = nil
 
 desc 'Runs rubocop with our custom settings'
@@ -28,6 +30,12 @@ RuboCop::RakeTask.new(:rubocop) do |task|
 end
 
 if Dir.exists?('app')
+  task :rubocop do
+    eslint = Eslint.new(config: File.expand_path('../../../config/eslint.json', __FILE__))
+    next eslint.run if eslint.executable_exists?
+    puts 'Warning: the eslint executable could not be found (npm install -g eslint)'
+  end
+
   scss_task = File.exists?("#{Dir.pwd}/.skip_scss_lint") ? :scss_lint : :rubocop
   SCSSLint::RakeTask.new(scss_task) do |task|
     task.config = File.expand_path('../../../config/scss-lint.yml', __FILE__)
