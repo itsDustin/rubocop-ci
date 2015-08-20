@@ -27,8 +27,8 @@ RuboCop::RakeTask.new(:rubocop) do |task|
   task.requires = ['rubocop-rspec']
 end
 
-if Dir.exists?('app')
-  scss_task = File.exists?("#{Dir.pwd}/.skip_scss_lint") ? :scss_lint : :rubocop
+if Dir.exist?('app')
+  scss_task = File.exist?("#{Dir.pwd}/.skip_scss_lint") ? :scss_lint : :rubocop
   SCSSLint::RakeTask.new(scss_task) do |task|
     task.config = File.expand_path('../../../config/scss-lint.yml', __FILE__)
     task.files = ['app/assets']
@@ -41,6 +41,6 @@ if Dir.exists?('app')
 
   SlimLint::RakeTask.new(:rubocop) do |task|
     task.config = File.expand_path('../../../config/slim-lint.yml', __FILE__)
-    task.files = ['app', 'spec']
+    task.files = %w(app spec)
   end
 end
