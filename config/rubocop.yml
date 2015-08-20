@@ -56,3 +56,6 @@ Style/AutoResourceCleanup:
 
 Style/CollectionMethods:
   Enabled: true
+
+Style/Send:
+  Enabled: true
