@@ -59,3 +59,11 @@ Style/CollectionMethods:
 
 Style/Send:
   Enabled: true
+
+# Don't restrict some cops to certain directories:
+
+Rails/FindBy:
+  Include: null
+
+Rails/FindEach:
+  Include: null
