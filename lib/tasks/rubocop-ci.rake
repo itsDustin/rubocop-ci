@@ -9,9 +9,14 @@ require 'slim_lint/rake_task'
 
 rubocop_config = nil
 
+
+def config_file(name)
+  File.expand_path("../../../config/#{name}", __FILE__)
+end
+
 desc 'Runs rubocop with our custom settings'
 RuboCop::RakeTask.new(:rubocop) do |task|
-  config = gem_config = File.expand_path('../../../config/rubocop.yml', __FILE__)
+  config = gem_config = config_file('rubocop.yml')
   todo_config = "#{Dir.pwd}/.rubocop_todo.yml"
 
   if File.exist?(todo_config)
@@ -30,7 +35,7 @@ end
 if Dir.exist?('app')
   scss_task = File.exist?("#{Dir.pwd}/.skip_scss_lint") ? :scss_lint : :rubocop
   SCSSLint::RakeTask.new(scss_task) do |task|
-    task.config = File.expand_path('../../../config/scss-lint.yml', __FILE__)
+    task.config = config_file('scss-lint.yml')
     task.files = ['app/assets']
   end
 
@@ -40,7 +45,7 @@ if Dir.exist?('app')
   end
 
   SlimLint::RakeTask.new(:rubocop) do |task|
-    task.config = File.expand_path('../../../config/slim-lint.yml', __FILE__)
+    task.config = config_file('slim-lint.yml')
     task.files = %w(app spec)
   end
 end
