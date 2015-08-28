@@ -9,7 +9,6 @@ require 'slim_lint/rake_task'
 
 rubocop_config = nil
 
-
 def config_file(name)
   File.expand_path("../../../config/#{name}", __FILE__)
 end
