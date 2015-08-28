@@ -1,6 +1,6 @@
 # Rubocop for CI
 
-Run rubocop on your CI. Also runs scss-lint now. And coffeelint. And slim-lint.
+Run rubocop on your CI. Also runs scss-lint now. And coffeelint. And slim-lint. And standard.
 
 ## Usage
 

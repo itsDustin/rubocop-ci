@@ -48,4 +48,12 @@ if Dir.exist?('app')
     task.config = config_file('slim-lint.yml')
     task.files = %w(app spec)
   end
+
+  task :rubocop do
+    install = 'npm install standard -g'
+    sh install if ENV['CI']
+    fail "Please install standard: #{install}" unless system('which standard')
+
+    sh 'standard'
+  end
 end
