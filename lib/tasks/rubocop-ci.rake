@@ -53,6 +53,6 @@ if Dir.exist?('app')
     sh install if ENV['CI']
     fail "Please install standard: #{install}" unless system('which standard')
 
-    sh 'standard {app,spec,lib}/**/*.{js,jsx}'
+    sh 'standard'
   end
 end
