@@ -1,11 +1,9 @@
 require 'rubocop/rake_task'
-
 require 'scss_lint/rake_task'
-
 require 'coffeelint'
-
 require 'slim_lint'
 require 'slim_lint/rake_task'
+require 'brakeman'
 
 rubocop_config = nil
 
@@ -54,5 +52,16 @@ if Dir.exist?('app')
     fail "Please install standard: #{install}" unless system('which standard')
 
     sh 'standard'
+  end
+
+  task :rubocop do
+    result = Brakeman.run(app_path: '.', exit_on_warn: true)
+
+    if result.errors.empty? && result.warnings.empty?
+      puts 'Brakeman OK'
+    else
+      puts result.report.to_s
+      fail 'Brakeman Errors'
+    end
   end
 end
