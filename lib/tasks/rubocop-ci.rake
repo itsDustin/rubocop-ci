@@ -26,6 +26,9 @@ RuboCop::RakeTask.new(:rubocop) do |task|
     config = rubocop_config.path
   end
 
+  # SlimLint runs rubocop on .slim files. Ensure we use the same config for .rb and .slim files.
+  ENV['SLIM_LINT_RUBOCOP_CONF'] = config
+
   task.options = ['-D', '-c', config]
   task.options << '-R' if defined?(Rails)
   task.options << '--auto-gen-config' if ENV['AUTOGEN']
