@@ -34,6 +34,11 @@ Add this to the development/test group in your Gemfile:
 gem 'rubocop-ci', git: 'https://github.com/ad2games/rubocop-ci'
 ```
 
+If your project is not a Rails app, add the following to your `Rakefile`:
+```ruby
+require 'rubocop-ci'
+```
+
 Run `bundle exec rake rubocop` before/after your tests on your CI.
 
 ## Changes
