@@ -1,3 +1,6 @@
+require 'rake'
+require 'psych'
+
 require 'rubocop/rake_task'
 require 'scss_lint/rake_task'
 require 'coffeelint'
