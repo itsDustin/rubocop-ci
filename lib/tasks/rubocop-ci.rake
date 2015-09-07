@@ -62,8 +62,9 @@ if Dir.exist?('app')
 
   task :rubocop do
     result = Brakeman.run(app_path: '.', exit_on_warn: true)
+    errors = result.errors + result.warnings - result.ignored_filter.ignored_warnings
 
-    if result.errors.empty? && result.warnings.empty?
+    if errors.empty?
       puts 'Brakeman OK'
     else
       puts result.report.to_s
