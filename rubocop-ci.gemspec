@@ -19,4 +19,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'scss_lint'
   s.add_dependency 'coffeelint'
   s.add_dependency 'slim_lint'
+
+  # Use brakeman with less dependencies, but still have nice output
+  s.add_dependency 'brakeman-min'
+  s.add_dependency 'terminal-table'
+  s.add_dependency 'highline'
 end

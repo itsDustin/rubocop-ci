@@ -1,6 +1,13 @@
 # Rubocop for CI
 
-Run rubocop on your CI. Also runs scss-lint now. And coffeelint. And slim-lint. And standard.
+Runs the following tools on your CI:
+
+- rubocop
+- brakeman
+- scss-lint
+- coffeelint
+- slim-lint
+- standard
 
 ## Usage
 
@@ -16,6 +23,8 @@ file using `bundle exec rake rubocop AUTOGEN=1`.
 
 If you do not want to run `scss-lint` on your project (yet),
 you can create a `.skip_scss_lint` file in your project root.
+
+To create brakeman exceptions, run `bundle exec brakeman -I` and follow the instructions.
 
 ## Installation
 
