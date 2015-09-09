@@ -1,0 +1,2 @@
+--color
+--require rubocop-ci_helper.rb

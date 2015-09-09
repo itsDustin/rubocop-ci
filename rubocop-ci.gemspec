@@ -24,4 +24,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'brakeman-min'
   s.add_dependency 'terminal-table'
   s.add_dependency 'highline'
+
+  s.add_development_dependency 'rspec'
 end
