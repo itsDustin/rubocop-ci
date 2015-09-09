@@ -1,5 +1,4 @@
 AllCops:
-  UseCache: false  # disable cache until issues are fixed
   Exclude:
     - 'bin/**/*'
     - 'db/schema.rb'
