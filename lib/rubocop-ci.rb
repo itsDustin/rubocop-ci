@@ -27,4 +27,3 @@ if defined?(Rails)
 else
   load 'tasks/rubocop-ci.rake'
 end
-
