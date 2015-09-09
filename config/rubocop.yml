@@ -4,6 +4,7 @@ AllCops:
     - 'bin/**/*'
     - 'db/schema.rb'
     - 'vendor/**/*'
+    - 'spec/dummy/db/schema.rb'
 
 Metrics/LineLength:
   Max: 100
