@@ -44,7 +44,8 @@ if Dir.exist?('app')
 
   task :rubocop do
     config = File.expand_path('../../../config/coffeelint.json', __FILE__)
-    Coffeelint.run_test_suite('app', config_file: config) || fail('Coffeelint fail!')
+    failures = Coffeelint.run_test_suite('app', config_file: config)
+    fail('Coffeelint fail!') if failures > 0
   end
 
   SlimLint::RakeTask.new(:rubocop) do |task|
