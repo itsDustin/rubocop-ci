@@ -16,7 +16,10 @@ Gem::Specification.new do |s|
   s.add_dependency 'psych'
   s.add_dependency 'rubocop'
   s.add_dependency 'rubocop-rspec'
-  s.add_dependency 'scss_lint'
+
+  # FIXME: Lock scss_lint to 0.41 until trailing semicolon issue is fixed
+  # (https://github.com/brigade/scss-lint/issues/602)
+  s.add_dependency 'scss_lint', '0.41.0'
   s.add_dependency 'coffeelint'
   s.add_dependency 'slim_lint'
 
