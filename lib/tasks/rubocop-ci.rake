@@ -1,5 +1,5 @@
 require 'rake'
-require 'psych'
+require 'yaml'
 
 require 'rubocop/rake_task'
 require 'scss_lint/rake_task'
@@ -21,7 +21,7 @@ RuboCop::RakeTask.new(:rubocop) do |task|
 
   if File.exist?(todo_config)
     rubocop_config = Tempfile.new('rubocop')
-    rubocop_config.write({ 'inherit_from' => [gem_config, todo_config.to_s] }.to_yaml)
+    rubocop_config.write(YAML.dump({ 'inherit_from' => [gem_config, todo_config.to_s] }))
     rubocop_config.close
     config = rubocop_config.path
   end
