@@ -1,5 +1,6 @@
 AllCops:
   Exclude:
+    - '**/*.pb.rb'
     - 'bin/**/*'
     - 'db/schema.rb'
     - 'vendor/**/*'
