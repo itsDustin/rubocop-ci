@@ -33,6 +33,11 @@ Style/ClassAndModuleChildren:
 Style/MultilineBlockChain:
   Enabled: false
 
+Style/PredicateName:
+  NamePrefixBlacklist:
+    - is_
+    - have_
+
 Rails/HasAndBelongsToMany:
   Enabled: false
 
