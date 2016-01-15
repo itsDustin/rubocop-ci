@@ -1,4 +1,5 @@
 AllCops:
+  TargetRubyVersion: 2.3
   Exclude:
     - '**/*.pb.rb'
     - 'bin/**/*'
@@ -22,6 +23,9 @@ Style/AlignParameters:
   EnforcedStyle: with_fixed_indentation
 
 Style/MultilineOperationIndentation:
+  EnforcedStyle: indented
+
+Style/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
 Style/FirstParameterIndentation:
@@ -50,10 +54,16 @@ Rails/Date:
 RSpec/DescribeClass:
   Enabled: false
 
-# Enable cops that are inactive by default:
+# TODO re-enable once they fixed the issue where a multi key-value #merge! also gets rewritten
+Performance/RedundantMerge:
+  Enabled: false
 
-Style/ExtraSpacing:
-  Enabled: true
+# TODO: re-enable once upstream bug is fixed
+# See https://github.com/nevir/rubocop-rspec/issues/62
+RSpec/FilePath:
+  Enabled: false
+
+# Enable cops that are inactive by default:
 
 Style/SymbolArray:
   Enabled: true
@@ -67,7 +77,10 @@ Style/CollectionMethods:
 Style/Send:
   Enabled: true
 
-Style/MutableConstant:
+Style/StringMethods:
+  Enabled: true
+
+Lint/LiteralInInterpolation:
   Enabled: true
 
 # Don't restrict some cops to certain directories:
