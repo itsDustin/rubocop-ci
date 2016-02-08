@@ -45,7 +45,7 @@ if Dir.exist?('app')
   task :rubocop do
     config = File.expand_path('../../../config/coffeelint.json', __FILE__)
     failures = Coffeelint.run_test_suite('app', config_file: config)
-    fail('Coffeelint fail!') if failures > 0
+    raise('Coffeelint fail!') if failures > 0
   end
 
   SlimLint::RakeTask.new(:rubocop) do |task|
@@ -56,7 +56,7 @@ if Dir.exist?('app')
   task :rubocop do
     install = 'npm install standard -g'
     sh install if ENV['CI']
-    fail "Please install standard: #{install}" unless system('which standard')
+    raise "Please install standard: #{install}" unless system('which standard')
 
     sh 'standard'
   end
@@ -70,7 +70,7 @@ if Dir.exist?('app')
       puts 'Brakeman OK'
     else
       puts result.report.to_s
-      fail 'Brakeman Errors'
+      raise 'Brakeman Errors'
     end
   end
 end
