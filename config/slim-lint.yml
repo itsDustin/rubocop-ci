@@ -1,3 +1,25 @@
 linters:
   LineLength:
     max: 100
+
+  RuboCop:
+    # TODO: Remove (and let defaults apply) once https://github.com/sds/slim-lint/pull/25 is merged
+    ignored_cops:
+      - Style/FrozenStringLiteralComment
+      # defaults from slim-lint:
+      - Lint/BlockAlignment
+      - Lint/EndAlignment
+      - Lint/Void
+      - Metrics/LineLength
+      - Style/AlignHash
+      - Style/AlignParameters
+      - Style/BlockNesting
+      - Style/FileName
+      - Style/FirstParameterIndentation
+      - Style/IfUnlessModifier
+      - Style/IndentationConsistency
+      - Style/IndentationWidth
+      - Style/Next
+      - Style/TrailingBlankLines
+      - Style/TrailingWhitespace
+      - Style/WhileUntilModifier
