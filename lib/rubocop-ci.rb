@@ -1,4 +1,5 @@
 # rubocop:disable Style/FileName
+# frozen_string_literal: true
 
 # Only load the rake task when we actually run the rake command.
 # If Rails is present, the Railtie ensures this.
