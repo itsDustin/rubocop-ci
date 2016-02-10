@@ -54,9 +54,8 @@ Rails/Date:
 RSpec/DescribeClass:
   Enabled: false
 
-# TODO re-enable once they fixed the issue where a multi key-value #merge! also gets rewritten
 Performance/RedundantMerge:
-  Enabled: false
+  MaxKeyValuePairs: 1
 
 # TODO: re-enable once upstream bug is fixed
 # See https://github.com/nevir/rubocop-rspec/issues/62
