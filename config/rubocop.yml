@@ -89,3 +89,6 @@ Rails/FindBy:
 
 Rails/FindEach:
   Include: null
+
+Style/EmptyLines:
+  Enabled: false
