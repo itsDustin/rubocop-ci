@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.license     = ''
 
   s.add_dependency 'rake'
-  s.add_dependency 'rubocop', '~> 0.37.1'
+  s.add_dependency 'rubocop', '~> 0.39.0'
   s.add_dependency 'rubocop-rspec'
   s.add_dependency 'scss_lint'
   s.add_dependency 'coffeelint'
