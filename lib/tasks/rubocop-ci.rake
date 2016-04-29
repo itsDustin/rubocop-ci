@@ -55,11 +55,11 @@ if Dir.exist?('app')
   end
 
   task :rubocop do
-    install = 'npm install standard -g'
+    install = 'npm install standard babel-eslint -g'
     sh install if ENV['CI']
     raise "Please install standard: #{install}" unless system('which standard')
 
-    sh 'standard'
+    sh 'standard --parser babel-eslint app/assets/javascript/**/*.js? client/app/**/*.js?'
   end
 
   task :rubocop do
