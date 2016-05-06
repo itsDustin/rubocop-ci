@@ -1,6 +1,9 @@
 linters:
   LineLength:
     max: 100
+    exclude:
+      # Mail templates tend to be a huge mess of HTML - so we disable the line length restriction
+      - 'app/views/layouts/mailer.html.slim'
 
   RuboCop:
     # TODO: Remove (and let defaults apply) once https://github.com/sds/slim-lint/pull/25 is merged
