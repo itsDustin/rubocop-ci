@@ -58,9 +58,7 @@ RSpec/DescribeClass:
 Performance/RedundantMerge:
   MaxKeyValuePairs: 1
 
-# TODO: re-enable once upstream bug is fixed
-# See https://github.com/nevir/rubocop-rspec/issues/62
-RSpec/FilePath:
+RSpec/ExampleLength:
   Enabled: false
 
 # Enable cops that are inactive by default:
@@ -78,9 +76,6 @@ Style/Send:
   Enabled: true
 
 Style/StringMethods:
-  Enabled: true
-
-Lint/LiteralInInterpolation:
   Enabled: true
 
 # Don't restrict some cops to certain directories:

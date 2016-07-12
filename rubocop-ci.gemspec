@@ -14,17 +14,14 @@ Gem::Specification.new do |s|
   s.license     = ''
 
   s.add_dependency 'rake'
-  s.add_dependency 'rubocop', '~> 0.39.0'
-  s.add_dependency 'rubocop-rspec'
-  s.add_dependency 'scss_lint'
-  s.add_dependency 'coffeelint'
-  s.add_dependency 'slim_lint'
-
-  # This is needed by slim_lint, which doesn't depend on it itself...
-  s.add_dependency 'astrolabe'
+  s.add_dependency 'rubocop', '~> 0.41.2'
+  s.add_dependency 'rubocop-rspec', '~> 1.5.0'
+  s.add_dependency 'scss_lint', '~> 0.49.0'
+  s.add_dependency 'coffeelint', '~> 1.14.0'
+  s.add_dependency 'slim_lint', '~> 0.8.1'
 
   # Use brakeman with less dependencies, but still have nice output
-  s.add_dependency 'brakeman-min'
+  s.add_dependency 'brakeman-min', '~> 3.3.2'
   s.add_dependency 'terminal-table'
   s.add_dependency 'highline'
 end
