@@ -78,6 +78,9 @@ Style/Send:
 Style/StringMethods:
   Enabled: true
 
+Rails/SaveBang:
+  Enabled: true
+
 # Don't restrict some cops to certain directories:
 
 Rails/FindBy:
