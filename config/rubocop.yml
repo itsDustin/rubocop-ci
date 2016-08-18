@@ -47,10 +47,10 @@ Rails/HasAndBelongsToMany:
   Enabled: false
 
 Rails/TimeZone:
-  Enabled: false
+  EnforcedStyle: flexible
 
 Rails/Date:
-  Enabled: false
+  EnforcedStyle: flexible
 
 RSpec/DescribeClass:
   Enabled: false
