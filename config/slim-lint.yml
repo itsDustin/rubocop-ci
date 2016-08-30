@@ -4,3 +4,26 @@ linters:
     exclude:
       # Mail templates tend to be a huge mess of HTML - so we disable the line length restriction
       - 'app/views/layouts/mailer.html.slim'
+
+  RuboCop:
+    # TODO: Remove (and let defaults apply) once https://github.com/sds/slim-lint/issues/30 is fixed
+    ignored_cops:
+      - Style/IndentHash
+      # defaults from slim-lint:
+      - Lint/BlockAlignment
+      - Lint/EndAlignment
+      - Lint/Void
+      - Metrics/LineLength
+      - Style/AlignHash
+      - Style/AlignParameters
+      - Style/BlockNesting
+      - Style/FileName
+      - Style/FirstParameterIndentation
+      - Style/FrozenStringLiteralComment
+      - Style/IfUnlessModifier
+      - Style/IndentationConsistency
+      - Style/IndentationWidth
+      - Style/Next
+      - Style/TrailingBlankLines
+      - Style/TrailingWhitespace
+      - Style/WhileUntilModifier
