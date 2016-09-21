@@ -14,14 +14,14 @@ Gem::Specification.new do |s|
   s.license     = ''
 
   s.add_dependency 'rake'
-  s.add_dependency 'rubocop', '~> 0.42.0'
-  s.add_dependency 'rubocop-rspec', '~> 1.5.1'
-  s.add_dependency 'scss_lint', '~> 0.49.0'
+  s.add_dependency 'rubocop', '~> 0.43.0'
+  s.add_dependency 'rubocop-rspec', '= 1.7.0' # hard lock, they break semver promises
+  s.add_dependency 'scss_lint', '~> 0.50.2'
   s.add_dependency 'coffeelint', '~> 1.14.0'
-  s.add_dependency 'slim_lint', '~> 0.8.1'
+  s.add_dependency 'slim_lint', '~> 0.8.2'
 
   # Use brakeman with less dependencies, but still have nice output
-  s.add_dependency 'brakeman-min', '~> 3.3.3'
+  s.add_dependency 'brakeman-min', '~> 3.4.0'
   s.add_dependency 'terminal-table'
   s.add_dependency 'highline'
 end

@@ -64,7 +64,7 @@ if Dir.exist?('app')
 
   task :rubocop do
     result = Brakeman.run(app_path: '.', exit_on_warn: true)
-    ignored = result.ignored_filter ? result.ignored_filter.ignored_warnings : []
+    ignored = result.ignored_filter&.ignored_warnings || []
     errors = result.errors + result.warnings - ignored
 
     if errors.empty?

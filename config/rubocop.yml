@@ -58,7 +58,29 @@ RSpec/DescribeClass:
 Performance/RedundantMerge:
   MaxKeyValuePairs: 1
 
+Rails/SafeNavigation:
+  ConvertTry: true
+
+# TODO: Cop is currently broken for `foo_bar1`. Re-enable once fixed.
+# See https://github.com/bbatsov/rubocop/issues/3516
+Style/VariableNumber:
+  Enabled: false
+
+# Some RSpec cops are a bit excessive
+
 RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/MessageExpectation:
+  Enabled: false
+
+RSpec/LetSetup:
+  Enabled: false
+
+RSpec/LeadingSubject:
   Enabled: false
 
 # Enable cops that are inactive by default:
