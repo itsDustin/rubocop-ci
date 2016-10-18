@@ -59,7 +59,8 @@ if Dir.exist?('app')
     sh install if ENV['CI']
     raise "Please install standard: #{install}" unless system('which standard')
 
-    sh 'standard --parser babel-eslint app/assets/javascripts/**/*.js? client/{app,lib}/**/*.js?'
+    files = Dir['{app/assets/javascripts,client/app,client/lib}/**/*.{js,jsx}'].join(' ')
+    sh "standard --parser babel-eslint #{files}"
   end
 
   task :rubocop do
