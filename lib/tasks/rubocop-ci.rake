@@ -32,7 +32,10 @@ RuboCop::RakeTask.new(:rubocop) do |task|
 
   task.options = ['-D', '-c', config]
   task.options << '-R' if defined?(Rails)
-  task.options << '--auto-gen-config' if ENV['AUTOGEN']
+  if ENV['AUTOGEN']
+    task.options << '--auto-gen-config'
+    task.options << %w(--exclude-limit 1000)
+  end
   task.requires = ['rubocop-rspec']
 end
 
