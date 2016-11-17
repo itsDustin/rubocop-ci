@@ -18,6 +18,9 @@ Metrics/BlockLength:
     - 'spec/**/*.rb'
     - '*.gemspec'
 
+Style/AsciiComments:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false
 
