@@ -84,6 +84,9 @@ RSpec/LetSetup:
 RSpec/LeadingSubject:
   Enabled: false
 
+RSpec/NestedGroups:
+  MaxNesting: 4
+
 # Enable cops that are inactive by default:
 
 Style/SymbolArray:
