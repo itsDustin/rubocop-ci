@@ -12,6 +12,9 @@ AllCops:
 Metrics/LineLength:
   Max: 100
 
+Style/AsciiComments:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false
 
