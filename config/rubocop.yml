@@ -114,3 +114,8 @@ Rails/FindBy:
 
 Rails/FindEach:
   Include: null
+
+# Disabled since it only applies to Rails 5. Reenable when we migrate our apps to Rails 5.
+# https://github.com/bbatsov/rubocop/issues/3629
+Rails/HttpPositionalArguments:
+  Enabled: false
