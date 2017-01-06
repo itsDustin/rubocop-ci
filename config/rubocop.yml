@@ -48,10 +48,10 @@ Rails/HasAndBelongsToMany:
   Enabled: false
 
 Rails/TimeZone:
-  EnforcedStyle: flexible
+  EnforcedStyle: strict
 
 Rails/Date:
-  EnforcedStyle: flexible
+  EnforcedStyle: strict
 
 RSpec/DescribeClass:
   Enabled: false
