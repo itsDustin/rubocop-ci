@@ -14,6 +14,7 @@ linters:
       - Lint/EndAlignment
       - Lint/Void
       - Metrics/LineLength
+      - Metrics/BlockLength
       - Style/AlignHash
       - Style/AlignParameters
       - Style/BlockNesting
