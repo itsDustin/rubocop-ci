@@ -4,6 +4,8 @@ linters:
     exclude:
       # Mail templates tend to be a huge mess of HTML - so we disable the line length restriction
       - 'app/views/layouts/mailer.html.slim'
+  ConsecutiveControlStatements:
+    enabled: false
 
   RuboCop:
     # TODO: Remove (and let defaults apply) once https://github.com/sds/slim-lint/issues/30 is fixed
