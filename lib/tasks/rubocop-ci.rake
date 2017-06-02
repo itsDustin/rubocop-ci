@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rake'
 require 'yaml'
 
@@ -34,7 +35,7 @@ RuboCop::RakeTask.new(:rubocop) do |task|
   task.options << '-R' if defined?(Rails)
   if ENV['AUTOGEN']
     task.options << '--auto-gen-config'
-    task.options << %w(--exclude-limit 1000)
+    task.options << %w[--exclude-limit 1000]
   end
   task.requires = ['rubocop-rspec']
 end
@@ -54,7 +55,7 @@ if Dir.exist?('app')
 
   SlimLint::RakeTask.new(:rubocop) do |task|
     task.config = config_file('slim-lint.yml')
-    task.files = %w(app spec)
+    task.files = %w[app spec]
   end
 
   task :rubocop do
