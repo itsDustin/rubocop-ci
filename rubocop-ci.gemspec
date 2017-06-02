@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'rubocop', '~> 0.45.0'
   s.add_dependency 'rubocop-rspec', '= 1.8.0' # hard lock, they break semver promises
   s.add_dependency 'scss_lint', '~> 0.53.0'
-  s.add_dependency 'coffeelint', '~> 1.14.0'
+  s.add_dependency 'coffeelint', '~> 1.16.0'
   s.add_dependency 'slim_lint', '~> 0.8.3'
 
   # Use brakeman with less dependencies, but still have nice output
