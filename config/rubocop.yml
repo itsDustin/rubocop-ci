@@ -21,16 +21,16 @@ Style/IfUnlessModifier:
 Style/NumericLiterals:
   Enabled: false
 
-Style/AlignParameters:
+Layout/AlignParameters:
   EnforcedStyle: with_fixed_indentation
 
-Style/MultilineOperationIndentation:
+Layout/MultilineOperationIndentation:
   EnforcedStyle: indented
 
-Style/MultilineMethodCallIndentation:
+Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
-Style/FirstParameterIndentation:
+Layout/FirstParameterIndentation:
   EnforcedStyle: consistent
 
 Style/ClassAndModuleChildren:
@@ -85,7 +85,7 @@ RSpec/LeadingSubject:
   Enabled: false
 
 RSpec/NestedGroups:
-  MaxNesting: 4
+  Max: 4
 
 # Enable cops that are inactive by default:
 
@@ -107,6 +107,20 @@ Style/StringMethods:
 Rails/SaveBang:
   Enabled: true
 
+Rails/SkipsModelValidations:
+  Blacklist:
+    # - update_all
+    - decrement!
+    - decrement_counter
+    - increment!
+    - increment_counter
+    - toggle!
+    - touch
+    - update_attribute
+    - update_column
+    - update_columns
+    - update_counters
+
 # Don't restrict some cops to certain directories:
 
 Rails/FindBy:
@@ -114,3 +128,10 @@ Rails/FindBy:
 
 Rails/FindEach:
   Include: null
+
+# brakeman currently cannot parse squiggly heredocs(i.e. <<~DOC)
+Layout/IndentHeredoc:
+  Enabled: false
+
+RSpec/MessageSpies:
+  Enabled: false

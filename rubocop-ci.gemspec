@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 $LOAD_PATH.push File.expand_path('../lib', __FILE__)
 
 Gem::Specification.new do |s|
@@ -14,14 +15,14 @@ Gem::Specification.new do |s|
   s.license     = ''
 
   s.add_dependency 'rake'
-  s.add_dependency 'rubocop', '~> 0.45.0'
-  s.add_dependency 'rubocop-rspec', '= 1.8.0' # hard lock, they break semver promises
-  s.add_dependency 'scss_lint', '~> 0.50.3'
-  s.add_dependency 'coffeelint', '~> 1.14.0'
-  s.add_dependency 'slim_lint', '~> 0.8.3'
+  s.add_dependency 'rubocop', '~> 0.49.1'
+  s.add_dependency 'rubocop-rspec', '= 1.15.1' # hard lock, they break semver promises
+  s.add_dependency 'scss_lint', '~> 0.53.0'
+  s.add_dependency 'coffeelint', '~> 1.16.0'
+  s.add_dependency 'slim_lint', '~> 0.13.0'
 
   # Use brakeman with less dependencies, but still have nice output
-  s.add_dependency 'brakeman-min', '~> 3.4.1'
+  s.add_dependency 'brakeman-min', '~> 3.6.2'
   s.add_dependency 'terminal-table'
   s.add_dependency 'highline'
 end
