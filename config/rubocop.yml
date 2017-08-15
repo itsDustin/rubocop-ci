@@ -8,6 +8,7 @@ AllCops:
     - 'vendor/**/*'
     - 'client/**/*'
     - 'spec/dummy/db/schema.rb'
+    - '**/node_modules/**/*'
 
 Metrics/LineLength:
   Max: 100
