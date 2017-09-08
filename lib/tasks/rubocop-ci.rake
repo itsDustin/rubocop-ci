@@ -59,12 +59,15 @@ if Dir.exist?('app')
   end
 
   task :rubocop do
-    install = 'npm install standard babel-eslint -g'
+    install = 'npm install standard babel-eslint flow-bin -g'
     sh install if ENV['CI']
-    raise "Please install standard: #{install}" unless system('which standard')
+    raise "Please install standard: #{install}" unless system('which standard') && system('which flow')
 
     files = Dir['{app/assets/javascripts,client/app,client/lib}/**/*.{js,jsx}'].join(' ')
     sh "standard --parser babel-eslint #{files}"
+
+    Dir.chdir('client') if File.exists?('client/.flowconfig')
+    sh "flow check" if File.exists?('.flowconfig')
   end
 
   task :rubocop do
