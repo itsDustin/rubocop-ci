@@ -63,7 +63,14 @@ if Dir.exist?('app')
     sh install if ENV['CI']
     raise "Please install standard: #{install}" unless system('which standard')
 
-    files = Dir['{app/assets/javascripts,client/app,client/lib}/**/*.{js,jsx}'].join(' ')
+    base_js_dirs = [
+      'app/assets/javascripts',
+      'app/javascript',
+      'client/app',
+      'client/lib'
+    ]
+
+    files = Dir["{#{base_js_dirs.join(',')}}/**/*.{js,jsx}"].join(' ')
     sh "standard --parser babel-eslint #{files}"
   end
 
