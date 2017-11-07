@@ -16,6 +16,26 @@ def config_file(name)
   File.expand_path("../../../config/#{name}", __FILE__)
 end
 
+def check_standard
+  install = 'npm install standard babel-eslint -g'
+  sh install if ENV['CI']
+  raise "Please install standard: #{install}" unless system('which standard')
+end
+
+def run_standard(options = nil)
+  check_standard
+
+  base_js_dirs = [
+    'app/assets/javascripts',
+    'app/javascript',
+    'client/app',
+    'client/lib'
+  ]
+
+  files = Dir["{#{base_js_dirs.join(',')}}/**/*.{js,jsx}"].join(' ')
+  sh "standard #{options} --parser babel-eslint #{files}"
+end
+
 desc 'Runs rubocop with our custom settings'
 RuboCop::RakeTask.new(:rubocop) do |task|
   config = gem_config = config_file('rubocop.yml')
@@ -59,19 +79,7 @@ if Dir.exist?('app')
   end
 
   task :rubocop do
-    install = 'npm install standard babel-eslint -g'
-    sh install if ENV['CI']
-    raise "Please install standard: #{install}" unless system('which standard')
-
-    base_js_dirs = [
-      'app/assets/javascripts',
-      'app/javascript',
-      'client/app',
-      'client/lib'
-    ]
-
-    files = Dir["{#{base_js_dirs.join(',')}}/**/*.{js,jsx}"].join(' ')
-    sh "standard --parser babel-eslint #{files}"
+    run_standard
   end
 
   task :rubocop do
@@ -84,6 +92,12 @@ if Dir.exist?('app')
     else
       puts result.report.to_s
       raise 'Brakeman Errors'
+    end
+  end
+
+  namespace :rubocop do
+    task :auto_correct do
+      run_standard('--fix')
     end
   end
 end
