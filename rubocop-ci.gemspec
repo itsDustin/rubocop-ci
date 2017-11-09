@@ -14,15 +14,15 @@ Gem::Specification.new do |s|
   s.homepage    = 'http://www.ad2games.com'
   s.license     = ''
 
-  s.add_dependency 'rake'
-  s.add_dependency 'rubocop', '~> 0.49.1'
-  s.add_dependency 'rubocop-rspec', '= 1.15.1' # hard lock, they break semver promises
-  s.add_dependency 'scss_lint', '~> 0.56.0'
   s.add_dependency 'coffeelint', '~> 1.16.0'
-  s.add_dependency 'slim_lint', '~> 0.13.0'
+  s.add_dependency 'rake'
+  s.add_dependency 'rubocop', '~> 0.51.0'
+  s.add_dependency 'rubocop-rspec', '= 1.19.0' # hard lock, they break semver promises
+  s.add_dependency 'scss_lint', '~> 0.56.0'
+  s.add_dependency 'slim_lint', '~> 0.15.0'
 
   # Use brakeman with less dependencies, but still have nice output
-  s.add_dependency 'brakeman-min', '~> 3.7.2'
-  s.add_dependency 'terminal-table'
+  s.add_dependency 'brakeman-min', '~> 4.0.1'
   s.add_dependency 'highline'
+  s.add_dependency 'terminal-table'
 end

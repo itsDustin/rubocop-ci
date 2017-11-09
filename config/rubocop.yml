@@ -17,7 +17,7 @@ Metrics/BlockLength:
   Exclude:
     - 'spec/**/*.rb'
     - '*.gemspec'
-    
+
 Metrics/MethodLength:
   Exclude:
     - 'db/migrate/*.rb'
@@ -52,7 +52,7 @@ Style/ClassAndModuleChildren:
 Style/MultilineBlockChain:
   Enabled: false
 
-Style/PredicateName:
+Naming/PredicateName:
   NamePrefixBlacklist:
     - is_
     - have_
@@ -77,7 +77,7 @@ Rails/SafeNavigation:
 
 # TODO: Cop is currently broken for `foo_bar1`. Re-enable once fixed.
 # See https://github.com/bbatsov/rubocop/issues/3516
-Style/VariableNumber:
+Naming/VariableNumber:
   Enabled: false
 
 # Some RSpec cops are a bit excessive

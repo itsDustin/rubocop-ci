@@ -1,4 +1,4 @@
-# rubocop:disable Style/FileName
+# rubocop:disable Naming/FileName
 # frozen_string_literal: true
 
 # Only load the rake task when we actually run the rake command.
