@@ -17,6 +17,7 @@ Metrics/BlockLength:
   Exclude:
     - 'spec/**/*.rb'
     - '*.gemspec'
+    - 'config/routes.rb'
 
 Metrics/MethodLength:
   Exclude:
