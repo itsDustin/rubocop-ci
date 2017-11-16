@@ -18,7 +18,7 @@ Metrics/BlockLength:
     - 'spec/**/*.rb'
     - '*.gemspec'
     
-Metrics/MethodLength
+Metrics/MethodLength:
   Exclude:
     - 'db/migrate/*.rb'
 
