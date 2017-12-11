@@ -74,6 +74,9 @@ Performance/RedundantMerge:
 
 Rails/SafeNavigation:
   ConvertTry: true
+  
+Rails/NotNullColumn:
+  Enabled: false
 
 # TODO: Cop is currently broken for `foo_bar1`. Re-enable once fixed.
 # See https://github.com/bbatsov/rubocop/issues/3516
