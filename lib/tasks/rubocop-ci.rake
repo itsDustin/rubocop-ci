@@ -17,7 +17,8 @@ def config_file(name)
 end
 
 def check_standard
-  install = 'npm install standard babel-eslint -g'
+  # TODO: Remove is-my-json-valid from following line once https://git.io/vbiqu got fixed.
+  install = 'npm install standard babel-eslint is-my-json-valid@2.16.1 -g'
   sh install if ENV['CI']
   raise "Please install standard: #{install}" unless system('which standard')
 end
