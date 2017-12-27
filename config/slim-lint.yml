@@ -3,7 +3,7 @@ linters:
     max: 100
     exclude:
       # Mail templates tend to be a huge mess of HTML - so we disable the line length restriction
-      - 'app/views/layouts/mailer.html.slim'
+      - '**/app/views/layouts/mailer.html.slim'
   ConsecutiveControlStatements:
     enabled: false
 
