@@ -29,6 +29,11 @@ Style/AsciiComments:
 Style/Documentation:
   Enabled: false
 
+# Enable the cop after it has learned to distinguish strftime.
+# See https://github.com/bbatsov/rubocop/issues/5398
+Style/FormatStringToken:
+  Enabled: false
+
 Style/IfUnlessModifier:
   Enabled: false
 
@@ -57,6 +62,9 @@ Naming/PredicateName:
   NamePrefixBlacklist:
     - is_
     - have_
+
+Rails/CreateTableWithTimestamps:
+  Enabled: false
 
 Rails/HasAndBelongsToMany:
   Enabled: false
@@ -117,6 +125,9 @@ Style/Send:
 
 Style/StringMethods:
   Enabled: true
+
+Rails/RedundantReceiverInWithOptions:
+  Enabled: false
 
 Rails/SaveBang:
   Enabled: true

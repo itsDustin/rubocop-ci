@@ -12,3 +12,4 @@ if defined?(Rails)
 else
   load 'tasks/rubocop-ci.rake'
 end
+# rubocop:enable Naming/FileName
