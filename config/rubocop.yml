@@ -10,14 +10,18 @@ AllCops:
     - 'spec/dummy/db/schema.rb'
     - '**/node_modules/**/*'
 
-Metrics/LineLength:
-  Max: 100
+Metrics/AbcSize:
+  Exclude:
+    - 'db/migrate/*.rb'
 
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*.rb'
     - '*.gemspec'
     - 'config/routes.rb'
+
+Metrics/LineLength:
+  Max: 100
 
 Metrics/MethodLength:
   Exclude:
