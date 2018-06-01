@@ -1,0 +1,73 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'psych'
+
+class SnakeCaseKeyLint < Psych::Handler
+  attr_accessor :parser
+  attr_reader :errors
+
+  def initialize
+    @errors = []
+    @scopes = []
+    @key_expected = false
+    super
+  end
+
+  def start_sequence(*_important_things)
+    @scopes << :seq
+    @key_expected = false
+  end
+
+  def end_sequence
+    @scopes.pop
+    @key_expected = true if @scopes.last == :map
+  end
+
+  def start_mapping(*_important_things)
+    @scopes << :map
+    @key_expected = true
+  end
+
+  def end_mapping
+    @scopes.pop
+    @key_expected = true if @scopes.last == :map
+  end
+
+  def scalar(value, *_other_important_things)
+    return unless @scopes.last == :map
+
+    if @key_expected
+      errors << [value, parser.mark.line + 1] unless valid_key?(value)
+    end
+
+    @key_expected = !@key_expected
+  end
+
+  private
+
+  def valid_key?(value)
+    value =~ %r{\A[a-z0-9]+(?:[_\/][a-z0-9]+)*\z}
+  end
+end
+
+errors = {}
+
+ARGV.each do |path|
+  lint_handler = SnakeCaseKeyLint.new
+  parser = Psych::Parser.new lint_handler
+  lint_handler.parser = parser
+  File.open(path) { |f| parser.parse(f) }
+  errors[path] = lint_handler.errors unless lint_handler.errors.empty?
+end
+
+unless errors.empty?
+  STDERR.puts 'Following errors were found in the locale files'
+  errors.each do |path, file_errors|
+    file_errors.each do |value, line|
+      STDERR.puts "\u2717 Wrong key format #{value} at #{path}:#{line}"
+    end
+  end
+
+  exit(1)
+end

@@ -95,6 +95,11 @@ if Dir.exist?('app')
     end
   end
 
+  task :rubocop do
+    files = Dir['config/locales/**/*.yml'].join(' ')
+    sh "i18n-lint #{files}"
+  end
+
   namespace :rubocop do
     task :auto_correct do
       run_standard('--fix')

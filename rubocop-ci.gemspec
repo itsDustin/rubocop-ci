@@ -10,7 +10,9 @@ Gem::Specification.new do |s|
   s.description = ''
   s.authors     = ['ad2games GmbH']
   s.email       = 'developers@ad2games.com'
-  s.files       = Dir['lib/**/*']
+  s.files       = Dir['lib/**/*', 'exe/**/*']
+  s.bindir      = 'exe'
+  s.executables = ['i18n-lint']
   s.homepage    = 'http://www.ad2games.com'
   s.license     = ''
 
