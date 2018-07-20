@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.email       = 'developers@ad2games.com'
   s.files       = Dir['lib/**/*', 'exe/**/*']
   s.bindir      = 'exe'
-  s.executables = ['i18n-lint']
+  s.executables = %w[i18n-lint clockwork-lint]
   s.homepage    = 'http://www.ad2games.com'
   s.license     = ''
 
