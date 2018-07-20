@@ -100,6 +100,10 @@ if Dir.exist?('app')
     sh "i18n-lint #{files}"
   end
 
+  task :rubocop do
+    sh 'clockwork-lint'
+  end
+
   namespace :rubocop do
     task :auto_correct do
       run_standard('--fix')

@@ -1,0 +1,58 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'rubocop'
+
+class ClockworkWorkersList
+  include RuboCop::AST::Traversal
+  attr_reader :workers
+
+  def initialize(config_store)
+    @workers = Set.new
+    file_path = 'config/clockwork.rb'
+    ruby_version = config_store.for(file_path).target_ruby_version
+    walk(RuboCop::ProcessedSource.from_file(file_path, ruby_version).ast)
+  end
+
+  private
+
+  def on_send(node)
+    workers << node.receiver.const_name if node.method?(:perform_async)
+  end
+end
+
+class WorkersWithUniquenessList
+  include RuboCop::AST::Traversal
+  attr_reader :workers
+
+  def initialize(file_path, config_store)
+    @workers = Set.new
+    ruby_version = config_store.for(file_path).target_ruby_version
+    walk(RuboCop::ProcessedSource.from_file(file_path, ruby_version).ast)
+  end
+
+  def on_send(node)
+    return unless node.command?(:sidekiq_options)
+    node.arguments[0].each_pair do |key, value|
+      if key.value.to_sym == :unique && value.value.to_sym == :until_executed
+        workers << node.parent_module_name
+      end
+    end
+  end
+end
+
+config_store = RuboCop::ConfigStore.new
+workers = ClockworkWorkersList.new(config_store).workers
+workers_with_uniqueness = Dir['app/workers/**/*_worker.rb']
+  .each_with_object(Set.new) do |worker_path, acc|
+    acc.merge WorkersWithUniquenessList.new(worker_path, config_store).workers
+  end
+
+if (workers_wo_uniqueness = workers - workers_with_uniqueness).any?
+  STDERR.puts 'Following workers are called by the Clockwork, but are missing a uniqueness setting.'
+  STDERR.puts 'To avoid having duplicate jobs, please, ' \
+    'pass `unique: :until_executed` to the `sidekiq_options` call.'
+  workers_wo_uniqueness.each { |worker| puts "* #{worker}" }
+
+  exit(1)
+end
