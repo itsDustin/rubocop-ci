@@ -18,10 +18,6 @@ Metrics/BlockLength:
     - '*.gemspec'
     - 'config/routes.rb'
 
-Metrics/MethodLength:
-  Exclude:
-    - 'db/migrate/*.rb'
-
 Style/AsciiComments:
   Enabled: false
 
