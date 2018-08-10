@@ -1,6 +1,0 @@
-dependencies:
-  post:
-    - bundle update
-test:
-  override:
-    - bundle exec rake rubocop
