@@ -3,7 +3,19 @@
 
 require 'psych'
 
-class SnakeCaseKeyLint < Psych::Handler
+WrongKeyFormat = Struct.new(:key, :line, keyword_init: true) do
+  def message
+    "Key should use snake_case: \e[1m#{key}\e[0m"
+  end
+end
+
+WrongKeyOrder = Struct.new(:key, :prev_key, :line, keyword_init: true) do
+  def message
+    "Keys not in alphabetical order, \e[1m#{key}\e[0m should be before \e[1m#{prev_key}\e[0m"
+  end
+end
+
+class LocaleKeysLint < Psych::Handler
   attr_accessor :parser
   attr_reader :errors
 
@@ -11,6 +23,9 @@ class SnakeCaseKeyLint < Psych::Handler
     @errors = []
     @scopes = []
     @key_expected = false
+    @nesting = []
+    @last_key = nil
+
     super
   end
 
@@ -27,18 +42,23 @@ class SnakeCaseKeyLint < Psych::Handler
   def start_mapping(*_important_things)
     @scopes << :map
     @key_expected = true
+    @nesting << @last_key if @last_key
+    @last_key = nil
   end
 
   def end_mapping
     @scopes.pop
     @key_expected = true if @scopes.last == :map
+    @last_key = @nesting.pop
   end
 
   def scalar(value, *_other_important_things)
     return unless @scopes.last == :map
 
     if @key_expected
-      errors << [value, parser.mark.line + 1] unless valid_key?(value)
+      check_key_format(value)
+      check_key_order(value)
+      @last_key = value
     end
 
     @key_expected = !@key_expected
@@ -46,15 +66,29 @@ class SnakeCaseKeyLint < Psych::Handler
 
   private
 
-  def valid_key?(value)
+  def check_key_format(key)
+    return if correct_key_format?(key)
+    errors << WrongKeyFormat.new(key: key, line: parser.mark.line)
+  end
+
+  def check_key_order(key)
+    return if correct_key_order?(key)
+    errors << WrongKeyOrder.new(key: key, prev_key: @last_key, line: parser.mark.line)
+  end
+
+  def correct_key_format?(value)
     value =~ %r{\A[a-z0-9]+(?:[_\/][a-z0-9]+)*\z}
+  end
+
+  def correct_key_order?(current_key)
+    @last_key.nil? || @last_key < current_key
   end
 end
 
 errors = {}
 
 ARGV.each do |path|
-  lint_handler = SnakeCaseKeyLint.new
+  lint_handler = LocaleKeysLint.new
   parser = Psych::Parser.new lint_handler
   lint_handler.parser = parser
   File.open(path) { |f| parser.parse(f) }
@@ -62,10 +96,10 @@ ARGV.each do |path|
 end
 
 unless errors.empty?
-  STDERR.puts 'Following errors were found in the locale files'
+  STDERR.puts "\e[31mFollowing errors were found in the locale files\e[0m"
   errors.each do |path, file_errors|
-    file_errors.each do |value, line|
-      STDERR.puts "\u2717 Wrong key format #{value} at #{path}:#{line}"
+    file_errors.each do |error|
+      STDERR.puts "\e[31m\u2717\e[0m #{error.message} at #{path}:#{error.line + 1}"
     end
   end
 
