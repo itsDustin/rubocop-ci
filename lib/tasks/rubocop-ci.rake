@@ -36,6 +36,11 @@ def run_standard(options = nil)
   sh "standard #{options} --parser babel-eslint #{files}"
 end
 
+def run_i18n_lint(options = nil)
+  files = Dir['config/locales/**/*.yml'].join(' ')
+  sh "i18n-lint #{options} #{files}"
+end
+
 desc 'Runs rubocop with our custom settings'
 RuboCop::RakeTask.new(:rubocop) do |task|
   config = gem_config = config_file('rubocop.yml')
@@ -96,8 +101,7 @@ if Dir.exist?('app')
   end
 
   task :rubocop do
-    files = Dir['config/locales/**/*.yml'].join(' ')
-    sh "i18n-lint #{files}"
+    run_i18n_lint
   end
 
   task :rubocop do
@@ -107,6 +111,7 @@ if Dir.exist?('app')
   namespace :rubocop do
     task :auto_correct do
       run_standard('--fix')
+      run_i18n_lint('--fix')
     end
   end
 end

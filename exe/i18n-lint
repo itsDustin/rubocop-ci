@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require 'psych'
+require 'yaml'
 
 WrongKeyFormat = Struct.new(:key, :line, keyword_init: true) do
   def message
@@ -85,14 +86,39 @@ class LocaleKeysLint < Psych::Handler
   end
 end
 
-errors = {}
-
-ARGV.each do |path|
+def check_file(path)
   lint_handler = LocaleKeysLint.new
   parser = Psych::Parser.new lint_handler
   lint_handler.parser = parser
   File.open(path) { |f| parser.parse(f) }
-  errors[path] = lint_handler.errors unless lint_handler.errors.empty?
+  lint_handler.errors
+end
+
+def autocorrect_file(path)
+  autocorrected_data = sort_texts_alphabetically(YAML.load_file(path)).to_yaml
+  File.open(path, 'w') { |f| f.write(autocorrected_data) }
+end
+
+def sort_texts_alphabetically(data)
+  case data
+  when Hash then Hash[data.sort].transform_values { |v| sort_texts_alphabetically(v) }
+  when Array then data.map { |v| sort_texts_alphabetically(v) }
+  else data
+  end
+end
+
+autocorrect = !ARGV.delete('--fix').nil?
+errors = {}
+
+ARGV.each do |path|
+  file_errors = check_file(path)
+
+  if autocorrect && !file_errors.empty?
+    autocorrect_file(path)
+    file_errors = check_file(path)
+  end
+
+  errors[path] = file_errors unless file_errors.empty?
 end
 
 unless errors.empty?
