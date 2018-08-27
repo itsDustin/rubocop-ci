@@ -7,11 +7,10 @@ class ClockworkWorkersList
   include RuboCop::AST::Traversal
   attr_reader :workers
 
-  def initialize(config_store)
+  def initialize(config_store, clockwork_config_file)
     @workers = Set.new
-    file_path = 'config/clockwork.rb'
-    ruby_version = config_store.for(file_path).target_ruby_version
-    walk(RuboCop::ProcessedSource.from_file(file_path, ruby_version).ast)
+    ruby_version = config_store.for(clockwork_config_file).target_ruby_version
+    walk(RuboCop::ProcessedSource.from_file(clockwork_config_file, ruby_version).ast)
   end
 
   private
@@ -41,8 +40,11 @@ class WorkersWithUniquenessList
   end
 end
 
+clockwork_config_file = 'config/clockwork.rb'
+exit unless File.exist?(clockwork_config_file)
+
 config_store = RuboCop::ConfigStore.new
-workers = ClockworkWorkersList.new(config_store).workers
+workers = ClockworkWorkersList.new(config_store, clockwork_config_file).workers
 workers_with_uniqueness = Dir['app/workers/**/*_worker.rb']
   .each_with_object(Set.new) do |worker_path, acc|
     acc.merge WorkersWithUniquenessList.new(worker_path, config_store).workers
