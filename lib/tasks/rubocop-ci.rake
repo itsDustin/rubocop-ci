@@ -17,7 +17,9 @@ def config_file(name)
 end
 
 def check_standard
-  install = 'npm install standard babel-eslint -g'
+  # Unlock babel-eslint version when https://github.com/babel/babel-eslint/issues/530 gets fixed.
+  # Related https://github.com/babel/babel-eslint/issues/681
+  install = 'npm install standard babel-eslint@9.0.0 -g'
   sh install if ENV['CI']
   raise "Please install standard: #{install}" unless system('which standard')
 end
