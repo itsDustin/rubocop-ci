@@ -7,6 +7,9 @@ linters:
   ConsecutiveControlStatements:
     enabled: false
 
+  ControlStatementSpacing:
+    enabled: false
+
   RuboCop:
     # TODO: Remove (and let defaults apply) once https://github.com/sds/slim-lint/issues/30 is fixed
     ignored_cops:
