@@ -14,6 +14,7 @@ linters:
     # TODO: Remove (and let defaults apply) once https://github.com/sds/slim-lint/issues/30 is fixed
     ignored_cops:
       - Layout/IndentHash
+      - Layout/IndentArray
       # defaults from slim-lint:
       - Layout/AlignHash
       - Layout/AlignParameters
