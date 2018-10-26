@@ -8,7 +8,6 @@ require 'scss_lint/rake_task'
 require 'coffeelint'
 require 'slim_lint'
 require 'slim_lint/rake_task'
-require 'brakeman'
 
 rubocop_config = nil
 
@@ -90,16 +89,8 @@ if Dir.exist?('app')
   end
 
   task :rubocop do
-    result = Brakeman.run(app_path: '.', exit_on_warn: true)
-    ignored = result.ignored_filter&.ignored_warnings || []
-    errors = result.errors + result.warnings - ignored
-
-    if errors.empty?
-      puts 'Brakeman OK'
-    else
-      puts result.report.to_s
-      raise 'Brakeman Errors'
-    end
+    success = system('bundle exec brakeman --no-pager')
+    raise 'Brakeman Errors' unless success
   end
 
   task :rubocop do
