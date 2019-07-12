@@ -16,6 +16,7 @@ def config_file(name)
 end
 
 def check_standard
+  # Unlock standard when https://github.com/standard/standard/issues/1328 gets resolved.
   install = "npm install 'standard@<13' babel-eslint -g"
   sh install if ENV['CI']
   raise "Please install standard: #{install}" unless system('which standard')
