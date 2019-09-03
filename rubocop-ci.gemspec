@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'slim_lint', '~> 0.16.1'
 
   # Use brakeman with less dependencies, but still have nice output
-  s.add_dependency 'brakeman-min', '~> 4.3'
+  s.add_dependency 'brakeman-min', '~> 4.6.0'
   s.add_dependency 'highline'
   s.add_dependency 'terminal-table'
 end
