@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-$LOAD_PATH.push File.expand_path('../lib', __FILE__)
+$LOAD_PATH.push File.expand_path('lib', __dir__)
 
 Gem::Specification.new do |s|
   s.name        = 'rubocop-ci'
@@ -19,8 +19,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'coffeelint', '~> 1.16.0'
   s.add_dependency 'rake'
   s.add_dependency 'rubocop', '~> 0.74'
-  s.add_dependency 'rubocop-rails'
   s.add_dependency 'rubocop-performance'
+  s.add_dependency 'rubocop-rails'
   s.add_dependency 'rubocop-rspec', '= 1.19.0' # hard lock, they break semver promises
   s.add_dependency 'scss_lint', '~> 0.57.0'
   s.add_dependency 'slim_lint', '~> 0.16.1'
