@@ -65,7 +65,7 @@ Style/MultilineBlockChain:
   Enabled: false
 
 Naming/PredicateName:
-  NamePrefixBlacklist:
+  ForbiddenPrefixes:
     - is_
     - have_
 
@@ -161,7 +161,7 @@ Rails/FindEach:
   Include: null
 
 # brakeman currently cannot parse squiggly heredocs(i.e. <<~DOC)
-Layout/IndentHeredoc:
+Layout/HeredocIndentation:
   Enabled: false
 
 RSpec/MessageSpies:
