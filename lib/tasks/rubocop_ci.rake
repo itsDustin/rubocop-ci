@@ -43,6 +43,8 @@ end
 
 desc 'Runs rubocop with our custom settings'
 RuboCop::RakeTask.new(:rubocop) do |task|
+  task.requires << 'rubocop-rails'
+  task.requires << 'rubocop-performance'
   config = gem_config = config_file('rubocop.yml')
   todo_config = "#{Dir.pwd}/.rubocop_todo.yml"
 
@@ -73,7 +75,7 @@ if Dir.exist?('app')
   end
 
   task :rubocop do
-    config = File.expand_path('../../../config/coffeelint.json', __FILE__)
+    config = File.expand_path('../../config/coffeelint.json', __dir__)
     failures = Coffeelint.run_test_suite('app', config_file: config)
     raise('Coffeelint fail!') if failures.positive?
   end

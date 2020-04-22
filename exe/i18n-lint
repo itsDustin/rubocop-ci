@@ -69,11 +69,13 @@ class LocaleKeysLint < Psych::Handler
 
   def check_key_format(key)
     return if correct_key_format?(key)
+
     errors << WrongKeyFormat.new(key: key, line: parser.mark.line)
   end
 
   def check_key_order(key)
     return if correct_key_order?(key)
+
     errors << WrongKeyOrder.new(key: key, prev_key: @last_key, line: parser.mark.line)
   end
 
@@ -122,10 +124,10 @@ ARGV.each do |path|
 end
 
 unless errors.empty?
-  STDERR.puts "\e[31mFollowing errors were found in the locale files\e[0m"
+  warn "\e[31mFollowing errors were found in the locale files\e[0m"
   errors.each do |path, file_errors|
     file_errors.each do |error|
-      STDERR.puts "\e[31m\u2717\e[0m #{error.message} at #{path}:#{error.line + 1}"
+      warn "\e[31m\u2717\e[0m #{error.message} at #{path}:#{error.line + 1}"
     end
   end
 

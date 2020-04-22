@@ -34,6 +34,7 @@ class WorkersWithUniquenessList
 
   def on_send(node)
     return unless node.command?(:sidekiq_options)
+
     node.arguments[0].each_pair do |key, value|
       if %i[lock unique].include?(key.value.to_sym) && value.value.to_sym == :until_executed
         workers << node.parent_module_name
@@ -113,8 +114,8 @@ workers_wo_uniqueness = WorkersWithoutUniquenessList
   .workers
 
 if workers_wo_uniqueness.any?
-  STDERR.puts 'Following workers are called by the Clockwork, but are missing a uniqueness setting.'
-  STDERR.puts 'To avoid having duplicate jobs, please, ' \
+  warn 'Following workers are called by the Clockwork, but are missing a uniqueness setting.'
+  warn 'To avoid having duplicate jobs, please, ' \
     'pass `lock(or unique): :until_executed` to the `sidekiq_options` call.'
   workers_wo_uniqueness.each { |worker| puts "* #{worker}" }
 

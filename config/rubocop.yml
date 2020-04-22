@@ -1,3 +1,6 @@
+require:
+  - rubocop-performance
+  - rubocop-rails
 AllCops:
   Exclude:
     - '**/*.pb.rb'
@@ -35,6 +38,9 @@ Style/AsciiComments:
 Style/Documentation:
   Enabled: false
 
+Rails/RakeEnvironment:
+  Enabled: false
+
 # Enable the cop after it has learned to distinguish strftime.
 # See https://github.com/bbatsov/rubocop/issues/5398
 Style/FormatStringToken:
@@ -46,7 +52,7 @@ Style/IfUnlessModifier:
 Style/NumericLiterals:
   Enabled: false
 
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   EnforcedStyle: with_fixed_indentation
 
 Layout/MultilineOperationIndentation:
@@ -65,7 +71,7 @@ Style/MultilineBlockChain:
   Enabled: false
 
 Naming/PredicateName:
-  NamePrefixBlacklist:
+  ForbiddenPrefixes:
     - is_
     - have_
 
@@ -161,7 +167,7 @@ Rails/FindEach:
   Include: null
 
 # brakeman currently cannot parse squiggly heredocs(i.e. <<~DOC)
-Layout/IndentHeredoc:
+Layout/HeredocIndentation:
   Enabled: false
 
 RSpec/MessageSpies:

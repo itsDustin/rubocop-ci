@@ -10,6 +10,6 @@ if defined?(Rails)
     rake_tasks { load 'tasks/rubocop-ci.rake' }
   end
 else
-  load 'tasks/rubocop-ci.rake'
+  load 'tasks/rubocop_ci.rake'
 end
 # rubocop:enable Naming/FileName
