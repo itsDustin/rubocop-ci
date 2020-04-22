@@ -43,6 +43,7 @@ end
 
 desc 'Runs rubocop with our custom settings'
 RuboCop::RakeTask.new(:rubocop) do |task|
+  task.requires << 'rubocop-rails'
   config = gem_config = config_file('rubocop.yml')
   todo_config = "#{Dir.pwd}/.rubocop_todo.yml"
 

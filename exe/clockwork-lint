@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require 'rubocop'
+require 'rubocop-rails'
 
 class ClockworkWorkersList
   include RuboCop::AST::Traversal
