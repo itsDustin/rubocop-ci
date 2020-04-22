@@ -46,7 +46,7 @@ Style/IfUnlessModifier:
 Style/NumericLiterals:
   Enabled: false
 
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   EnforcedStyle: with_fixed_indentation
 
 Layout/MultilineOperationIndentation:
