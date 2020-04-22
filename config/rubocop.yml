@@ -38,6 +38,9 @@ Style/AsciiComments:
 Style/Documentation:
   Enabled: false
 
+Rails/RakeEnvironment:
+  Enabled: false
+
 # Enable the cop after it has learned to distinguish strftime.
 # See https://github.com/bbatsov/rubocop/issues/5398
 Style/FormatStringToken:
