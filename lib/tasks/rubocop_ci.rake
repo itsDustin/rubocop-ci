@@ -59,7 +59,6 @@ RuboCop::RakeTask.new(:rubocop) do |task|
   ENV['SLIM_LINT_RUBOCOP_CONF'] = config
 
   task.options = ['-D', '-c', config]
-  task.options << '-R' if defined?(Rails)
   if ENV['AUTOGEN']
     task.options << '--auto-gen-config'
     task.options << %w[--exclude-limit 1000]
