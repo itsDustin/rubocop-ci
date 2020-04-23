@@ -7,7 +7,7 @@
 
 if defined?(Rails)
   class RubocopCiRailtie < Rails::Railtie
-    rake_tasks { load 'tasks/rubocop-ci.rake' }
+    rake_tasks { load 'tasks/rubocop_ci.rake' }
   end
 else
   load 'tasks/rubocop_ci.rake'
