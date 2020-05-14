@@ -2,6 +2,8 @@
 
 require 'rake'
 require 'yaml'
+require 'tempfile'
+require 'logger'
 
 require 'rubocop/rake_task'
 require 'scss_lint/rake_task'
@@ -9,7 +11,8 @@ require 'coffeelint'
 require 'slim_lint'
 require 'slim_lint/rake_task'
 
-rubocop_config = nil
+logger = Logger.new($stdout)
+logger.formatter = ->(_, _, _, msg) { "rubocop-ci: #{msg}\n" }
 
 def config_file(name)
   File.expand_path("../../../config/#{name}", __FILE__)
@@ -43,28 +46,35 @@ end
 
 desc 'Runs rubocop with our custom settings'
 RuboCop::RakeTask.new(:rubocop) do |task|
-  task.requires << 'rubocop-rails'
-  task.requires << 'rubocop-performance'
-  config = gem_config = config_file('rubocop.yml')
-  todo_config = "#{Dir.pwd}/.rubocop_todo.yml"
+  todo_config = Pathname.new(Dir.pwd).join('.rubocop_todo.yml').to_s
 
-  if File.exist?(todo_config)
-    rubocop_config = Tempfile.new('rubocop')
-    rubocop_config.write(YAML.dump('inherit_from' => [gem_config, todo_config.to_s]))
-    rubocop_config.close
-    config = rubocop_config.path
+  config_files = []
+  config_files << config_file('rubocop.yml')
+  if defined?(Rails)
+    logger.info('Rails is present, including Rails cops')
+    config_files << config_file('rubocop_rails.yml')
+  else
+    logger.info('Rails is not present, not including Rails cops')
   end
 
-  # SlimLint runs rubocop on .slim files. Ensure we use the same config for .rb and .slim files.
-  ENV['SLIM_LINT_RUBOCOP_CONF'] = config
+  if File.exist?(todo_config)
+    logger.info('.rubocop_todo.yml found, including it')
+    config_files << todo_config
+  end
 
-  task.options = ['-D', '-c', config]
-  task.options << '-R' if defined?(Rails)
+  rubocop_config = Tempfile.new('rubocop')
+  rubocop_config.write(YAML.dump('inherit_from' => config_files))
+  rubocop_config.close
+
+  # SlimLint runs rubocop on .slim files. Ensure we use the same config for .rb and .slim files.
+  ENV['SLIM_LINT_RUBOCOP_CONF'] = rubocop_config.path
+
+  task.options = ['-D', '-c', rubocop_config.path]
   if ENV['AUTOGEN']
     task.options << '--auto-gen-config'
     task.options << %w[--exclude-limit 1000]
   end
-  task.requires = ['rubocop-rspec']
+  logger.info("Running Rubocop with options: #{task.options.join(' ')}")
 end
 
 if Dir.exist?('app')

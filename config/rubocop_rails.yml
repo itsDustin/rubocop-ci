@@ -1,0 +1,47 @@
+require: rubocop-rails
+
+Rails/RakeEnvironment:
+  Enabled: false
+
+Rails/CreateTableWithTimestamps:
+  Enabled: false
+
+Rails/HasAndBelongsToMany:
+  Enabled: false
+
+Rails/TimeZone:
+  EnforcedStyle: flexible
+
+Rails/Date:
+  EnforcedStyle: flexible
+
+Rails/SafeNavigation:
+  ConvertTry: true
+
+Rails/RedundantReceiverInWithOptions:
+  Enabled: false
+
+Rails/SaveBang:
+  Enabled: true
+
+Rails/SkipsModelValidations:
+  Blacklist:
+    # - update_all
+    - decrement!
+    - decrement_counter
+    - increment!
+    - increment_counter
+    - toggle!
+    - touch
+    - update_attribute
+    - update_column
+    - update_columns
+    - update_counters
+
+# Don't restrict some cops to certain directories:
+
+Rails/FindBy:
+  Include: null
+
+Rails/FindEach:
+  Include: null
