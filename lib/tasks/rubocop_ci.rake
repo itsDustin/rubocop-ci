@@ -91,6 +91,7 @@ RuboCop::RakeTask.new(:rubocop) do |task|
   logger.info("rubocop #{task.options.join(' ')}")
 end
 
+desc 'Runs rubocop-git with our custom settings'
 task :rubocop_git do |_task|
   require 'rubocop/git/cli'
   options = ['-D', '-c', rubocop_config]
