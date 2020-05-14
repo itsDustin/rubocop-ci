@@ -1,6 +1,7 @@
 require:
   - rubocop-performance
-  - rubocop-rails
+  - rubocop-rspec
+
 AllCops:
   Exclude:
     - '**/*.pb.rb'
@@ -22,7 +23,7 @@ Metrics/BlockLength:
     - '*.gemspec'
     - 'config/routes.rb'
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 100
 
 Metrics/MethodLength:
@@ -32,13 +33,7 @@ Metrics/MethodLength:
 Style/AsciiComments:
   Enabled: false
 
-Style/AsciiComments:
-  Enabled: false
-
 Style/Documentation:
-  Enabled: false
-
-Rails/RakeEnvironment:
   Enabled: false
 
 # Enable the cop after it has learned to distinguish strftime.
@@ -75,26 +70,11 @@ Naming/PredicateName:
     - is_
     - have_
 
-Rails/CreateTableWithTimestamps:
-  Enabled: false
-
-Rails/HasAndBelongsToMany:
-  Enabled: false
-
-Rails/TimeZone:
-  EnforcedStyle: flexible
-
-Rails/Date:
-  EnforcedStyle: flexible
-
 RSpec/DescribeClass:
   Enabled: false
 
 Performance/RedundantMerge:
   MaxKeyValuePairs: 1
-
-Rails/SafeNavigation:
-  ConvertTry: true
 
 # TODO: Cop is currently broken for `foo_bar1`. Re-enable once fixed.
 # See https://github.com/bbatsov/rubocop/issues/3516
@@ -137,34 +117,6 @@ Style/Send:
 
 Style/StringMethods:
   Enabled: true
-
-Rails/RedundantReceiverInWithOptions:
-  Enabled: false
-
-Rails/SaveBang:
-  Enabled: true
-
-Rails/SkipsModelValidations:
-  Blacklist:
-    # - update_all
-    - decrement!
-    - decrement_counter
-    - increment!
-    - increment_counter
-    - toggle!
-    - touch
-    - update_attribute
-    - update_column
-    - update_columns
-    - update_counters
-
-# Don't restrict some cops to certain directories:
-
-Rails/FindBy:
-  Include: null
-
-Rails/FindEach:
-  Include: null
 
 # brakeman currently cannot parse squiggly heredocs(i.e. <<~DOC)
 Layout/HeredocIndentation:
