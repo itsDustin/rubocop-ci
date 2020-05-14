@@ -12,6 +12,7 @@ AllCops:
     - 'client/**/*'
     - 'spec/dummy/db/schema.rb'
     - '**/node_modules/**/*'
+  NewCops: enable
 
 Metrics/AbcSize:
   Exclude:

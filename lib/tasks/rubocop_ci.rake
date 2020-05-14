@@ -11,8 +11,13 @@ require 'coffeelint'
 require 'slim_lint'
 require 'slim_lint/rake_task'
 
-logger = Logger.new($stdout)
-logger.formatter = ->(_, _, _, msg) { "rubocop-ci: #{msg}\n" }
+def logger
+  return @logger if @logger
+
+  @logger = Logger.new($stdout)
+  @logger.formatter = ->(_, _, _, msg) { "rubocop-ci: #{msg}\n" }
+  @logger
+end
 
 def config_file(name)
   File.expand_path("../../../config/#{name}", __FILE__)
@@ -44,12 +49,15 @@ def run_i18n_lint(options = nil)
   sh "i18n-lint #{options} #{files}"
 end
 
-desc 'Runs rubocop with our custom settings'
-RuboCop::RakeTask.new(:rubocop) do |task|
+# rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+def rubocop_config
+  return @rubocop_config if @rubocop_config
+
   todo_config = Pathname.new(Dir.pwd).join('.rubocop_todo.yml').to_s
 
   config_files = []
   config_files << config_file('rubocop.yml')
+
   if defined?(Rails)
     logger.info('Rails is present, including Rails cops')
     config_files << config_file('rubocop_rails.yml')
@@ -66,15 +74,28 @@ RuboCop::RakeTask.new(:rubocop) do |task|
   rubocop_config.write(YAML.dump('inherit_from' => config_files))
   rubocop_config.close
 
-  # SlimLint runs rubocop on .slim files. Ensure we use the same config for .rb and .slim files.
-  ENV['SLIM_LINT_RUBOCOP_CONF'] = rubocop_config.path
+  @rubocop_config = rubocop_config.path
+end
+# rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
-  task.options = ['-D', '-c', rubocop_config.path]
+desc 'Runs rubocop with our custom settings'
+RuboCop::RakeTask.new(:rubocop) do |task|
+  # SlimLint runs rubocop on .slim files. Ensure we use the same config for .rb and .slim files.
+  ENV['SLIM_LINT_RUBOCOP_CONF'] = rubocop_config
+
+  task.options = ['-D', '-c', rubocop_config]
   if ENV['AUTOGEN']
     task.options << '--auto-gen-config'
     task.options << %w[--exclude-limit 1000]
   end
-  logger.info("Running Rubocop with options: #{task.options.join(' ')}")
+  logger.info("rubocop #{task.options.join(' ')}")
+end
+
+task :rubocop_git do |_task|
+  require 'rubocop/git/cli'
+  options = ['-D', '-c', rubocop_config]
+  logger.info("rubocop-git #{options.join(' ')}")
+  RuboCop::Git::CLI.new.run(options)
 end
 
 if Dir.exist?('app')
