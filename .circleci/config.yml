@@ -33,3 +33,7 @@ jobs:
       - run:
           name: Run rubocop
           command: bundle exec rake rubocop
+
+      - run:
+          name: Run rubocop-git
+          command: bundle exec rake rubocop_git
