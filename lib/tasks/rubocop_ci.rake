@@ -50,11 +50,7 @@ def run_i18n_lint(options = nil)
 end
 
 # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-def rubocop_config
-  return @rubocop_config if @rubocop_config
-
-  todo_config = Pathname.new(Dir.pwd).join('.rubocop_todo.yml').to_s
-
+def generate_rubocop_config(todo:)
   config_files = []
   config_files << config_file('rubocop.yml')
 
@@ -65,25 +61,29 @@ def rubocop_config
     logger.info('Rails is not present, not including Rails cops')
   end
 
-  if File.exist?(todo_config)
-    logger.info('.rubocop_todo.yml found, including it')
-    config_files << todo_config
+  if todo
+    todo_config = Pathname.new(Dir.pwd).join('.rubocop_todo.yml')
+    if File.exist?(todo_config)
+      logger.info('.rubocop_todo.yml found, including it')
+      config_files << todo_config.to_s
+    end
   end
 
   rubocop_config = Tempfile.new('rubocop')
   rubocop_config.write(YAML.dump('inherit_from' => config_files))
   rubocop_config.close
-
-  @rubocop_config = rubocop_config.path
+  rubocop_config.path
 end
 # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
 desc 'Runs rubocop with our custom settings'
 RuboCop::RakeTask.new(:rubocop) do |task|
-  # SlimLint runs rubocop on .slim files. Ensure we use the same config for .rb and .slim files.
-  ENV['SLIM_LINT_RUBOCOP_CONF'] = rubocop_config
+  config = generate_rubocop_config(todo: true)
 
-  task.options = ['-D', '-c', rubocop_config]
+  # SlimLint runs rubocop on .slim files. Ensure we use the same config for .rb and .slim files.
+  ENV['SLIM_LINT_RUBOCOP_CONF'] = config
+
+  task.options = ['-D', '-c', config]
   if ENV['AUTOGEN']
     task.options << '--auto-gen-config'
     task.options << %w[--exclude-limit 1000]
@@ -94,7 +94,8 @@ end
 desc 'Runs rubocop-git with our custom settings'
 task :rubocop_git do |_task|
   require 'rubocop/git/cli'
-  options = ['-D', '-c', rubocop_config]
+  config = generate_rubocop_config(todo: false)
+  options = ['-D', '-c', config]
   logger.info("rubocop-git #{options.join(' ')}")
   RuboCop::Git::CLI.new.run(options)
 end
