@@ -92,7 +92,7 @@ RuboCop::RakeTask.new(:rubocop) do |task|
 end
 
 desc 'Runs rubocop-git with our custom settings'
-task :rubocop_git do |_task|
+task :rubocop_diff do |_task|
   require 'rubocop/git/cli'
   config = generate_rubocop_config(todo: false)
   options = ['-D', '-c', config]
