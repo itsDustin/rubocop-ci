@@ -49,32 +49,39 @@ def run_i18n_lint(options = nil)
   sh "i18n-lint #{options} #{files}"
 end
 
-# rubocop:disable Metrics/MethodLength, Metrics/AbcSize
 def generate_rubocop_config(todo:)
   config_files = []
   config_files << config_file('rubocop.yml')
 
-  if defined?(Rails)
-    logger.info('Rails is present, including Rails cops')
-    config_files << config_file('rubocop_rails.yml')
-  else
-    logger.info('Rails is not present, not including Rails cops')
-  end
-
-  if todo
-    todo_config = Pathname.new(Dir.pwd).join('.rubocop_todo.yml')
-    if File.exist?(todo_config)
-      logger.info('.rubocop_todo.yml found, including it')
-      config_files << todo_config.to_s
-    end
-  end
+  config_files = include_rails_config(config_files)
+  config_files = include_todo_config(config_files) if todo
 
   rubocop_config = Tempfile.new('rubocop')
   rubocop_config.write(YAML.dump('inherit_from' => config_files))
   rubocop_config.close
   rubocop_config.path
 end
-# rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+
+def include_rails_config(config_files)
+  if defined?(Rails)
+    logger.info('Rails is present, including Rails cops')
+    config_files + [config_file('rubocop_rails.yml')]
+  else
+    logger.info('Rails is not present, not including Rails cops')
+    config_files
+  end
+end
+
+def include_todo_config(config_files)
+  todo_config = Pathname.new(Dir.pwd).join('.rubocop_todo.yml')
+  if File.exist?(todo_config)
+    logger.info('.rubocop_todo.yml found, including it')
+    config_files + [todo_config.to_s]
+  else
+    logger.info('No .rubocop_todo.yml found 🌞')
+    config_files
+  end
+end
 
 desc 'Runs rubocop with our custom settings'
 RuboCop::RakeTask.new(:rubocop) do |task|
