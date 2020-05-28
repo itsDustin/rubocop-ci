@@ -99,12 +99,14 @@ RuboCop::RakeTask.new(:rubocop) do |task|
 end
 
 desc 'Runs rubocop-git with our custom settings'
-task :rubocop_diff do |_task|
-  require 'rubocop/git/cli'
-  config = generate_rubocop_config(todo: false)
-  options = ['-D', '-c', config, 'origin/master...']
-  logger.info("rubocop-git #{options.join(' ')}")
-  RuboCop::Git::CLI.new.run(options)
+namespace :rubocop do
+  task :diff do
+    require 'rubocop/git/cli'
+    config = generate_rubocop_config(todo: false)
+    options = ['-D', '-c', config, 'origin/master...']
+    logger.info("rubocop-git #{options.join(' ')}")
+    RuboCop::Git::CLI.new.run(options)
+  end
 end
 
 if Dir.exist?('app')

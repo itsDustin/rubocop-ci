@@ -21,6 +21,11 @@ Please double check the results before committing!
 If your project needs relaxed settings, you can generate a `.rubocop_todo.yml`
 file using `bundle exec rake rubocop AUTOGEN=1`.
 
+Alternatively, there is a `rubocop:diff` Rake task that runs Rubocop only on
+the changes in your branch. This helps if you want to keep Rubocop up-to-date
+but don't want to change your whole code-base every time there is an update and
+also don't want to mask global settings in a `.rubocop_todo.yml`.
+
 If you do not want to run `scss-lint` on your project (yet),
 you can create a `.skip_scss_lint` file in your project root.
 
