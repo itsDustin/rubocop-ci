@@ -83,71 +83,94 @@ def include_todo_config(config_files)
   end
 end
 
-desc 'Runs rubocop with our custom settings'
-RuboCop::RakeTask.new(:rubocop) do |task|
-  config = generate_rubocop_config(todo: true)
+desc 'DEPRECATED: Run all linters'
+task rubocop: [
+  :'rubocop_ci:rubocop',
+  (:'rubocop_ci:scss_lint' unless File.exist?("#{Dir.pwd}/.skip_scss_lint")),
+  :'rubocop_ci:slim_lint',
+  :'rubocop_ci:coffee_lint',
+  :'rubocop_ci:javascript_lint',
+  :'rubocop_ci:brakeman',
+  :'rubocop_ci:i18n_lint',
+  :'rubocop_ci:clockwork_lint'
+].compact
 
-  # SlimLint runs rubocop on .slim files. Ensure we use the same config for .rb and .slim files.
-  ENV['SLIM_LINT_RUBOCOP_CONF'] = config
-
-  task.options = ['-D', '-c', config]
-  if ENV['AUTOGEN']
-    task.options << '--auto-gen-config'
-    task.options << %w[--exclude-limit 1000]
-  end
-  logger.info("rubocop #{task.options.join(' ')}")
-end
-
-desc 'Runs rubocop-git with our custom settings'
+desc 'DEPRECATED: Run linters that are auto-correct capable'
 namespace :rubocop do
-  task :diff do
-    require 'rubocop/git/cli'
-    config = generate_rubocop_config(todo: false)
-    options = ['-D', '-c', config, 'origin/master...']
-    logger.info("rubocop-git #{options.join(' ')}")
-    RuboCop::Git::CLI.new.run(options)
-  end
+  task auto_correct: :'rubcocop_ci:auto_correct'
 end
 
-if Dir.exist?('app')
-  scss_task = File.exist?("#{Dir.pwd}/.skip_scss_lint") ? :scss_lint : :rubocop
-  SCSSLint::RakeTask.new(scss_task) do |task|
+namespace :rubocop_ci do # rubocop:disable Metrics/BlockLength
+  desc 'Runs rubocop with our custom settings'
+  RuboCop::RakeTask.new(:rubocop) do |task|
+    config = generate_rubocop_config(todo: true)
+
+    # SlimLint runs rubocop on .slim files. Ensure we use the same config for
+    # .rb and .slim files.
+    ENV['SLIM_LINT_RUBOCOP_CONF'] = config
+
+    task.options = ['-D', '-c', config]
+    if ENV['AUTOGEN']
+      task.options << '--auto-gen-config'
+      task.options << %w[--exclude-limit 1000]
+    end
+    logger.info("rubocop #{task.options.join(' ')}")
+  end
+
+  desc 'Runs rubocop-git with our custom settings'
+  namespace :rubocop do
+    task :diff do
+      require 'rubocop/git/cli'
+      config = generate_rubocop_config(todo: false)
+      options = ['-D', '-c', config, 'origin/master...']
+      logger.info("rubocop-git #{options.join(' ')}")
+      RuboCop::Git::CLI.new.run(options)
+    end
+  end
+
+  desc 'Run linters that are auto-correct capable'
+  task :auto_correct do
+    run_standard('--fix')
+    run_i18n_lint('--fix')
+  end
+
+  desc 'Run SCSS linter'
+  SCSSLint::RakeTask.new(:scss_lint) do |task|
     task.config = config_file('scss-lint.yml')
     task.files = ['app/assets']
   end
 
-  task :rubocop do
+  desc 'Run CoffeeScript linter'
+  task :coffee_lint do
     config = File.expand_path('../../config/coffeelint.json', __dir__)
     failures = Coffeelint.run_test_suite('app', config_file: config)
     raise('Coffeelint fail!') if failures.positive?
   end
 
-  SlimLint::RakeTask.new(:rubocop) do |task|
+  desc 'Run slim linter'
+  SlimLint::RakeTask.new(:slim_lint) do |task|
     task.config = config_file('slim-lint.yml')
     task.files = %w[app spec]
   end
 
-  task :rubocop do
+  desc 'Run javascript linter'
+  task :javascript_lint do
     run_standard
   end
 
-  task :rubocop do
+  desc 'Run brakeman'
+  task :brakeman do
     success = system('bundle exec brakeman --no-pager')
     raise 'Brakeman Errors' unless success
   end
 
-  task :rubocop do
+  desc 'Run i18n linter'
+  task :i18n_lint do
     run_i18n_lint
   end
 
-  task :rubocop do
+  desc 'Run clockwork.rb linter'
+  task :clockwork_lint do
     sh 'clockwork-lint'
-  end
-
-  namespace :rubocop do
-    task :auto_correct do
-      run_standard('--fix')
-      run_i18n_lint('--fix')
-    end
   end
 end
