@@ -36,4 +36,4 @@ jobs:
 
       - run:
           name: Run rubocop on changes in the branch only
-          command: bundle exec rake rubocop_diff
+          command: bundle exec rake rubocop:diff
