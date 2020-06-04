@@ -119,10 +119,11 @@ namespace :rubocop_ci do # rubocop:disable Metrics/BlockLength
 
   desc 'Runs rubocop-git with our custom settings'
   namespace :rubocop do
-    task :diff do
+    task :diff, %i[reference_branch] do |_task, args|
       require 'rubocop/git/cli'
       config = generate_rubocop_config(todo: false)
-      options = ['-D', '-c', config, 'origin/master...']
+      reference_branch = args[:reference_branch] || 'origin/master...'
+      options = ['-D', '-c', config, reference_branch]
       logger.info("rubocop-git #{options.join(' ')}")
       RuboCop::Git::CLI.new.run(options)
     end
