@@ -84,18 +84,24 @@ def include_todo_config(config_files)
 end
 
 desc 'DEPRECATED: Run all linters'
-task rubocop: [
-  :'rubocop_ci:rubocop',
-  (:'rubocop_ci:scss_lint' unless File.exist?("#{Dir.pwd}/.skip_scss_lint")),
-  :'rubocop_ci:slim_lint',
-  :'rubocop_ci:coffee_lint',
-  :'rubocop_ci:javascript_lint',
-  :'rubocop_ci:brakeman',
-  :'rubocop_ci:i18n_lint',
-  :'rubocop_ci:clockwork_lint'
-].compact
+# TODO: Delete on next major release
+task rubocop: %i[rubocop_ci:rubocop] +
+  if Dir.exist?('app')
+    [
+      (:'rubocop_ci:scss_lint' unless File.exist?("#{Dir.pwd}/.skip_scss_lint")),
+      :'rubocop_ci:slim_lint',
+      :'rubocop_ci:coffee_lint',
+      :'rubocop_ci:javascript_lint',
+      :'rubocop_ci:brakeman',
+      :'rubocop_ci:i18n_lint',
+      :'rubocop_ci:clockwork_lint'
+    ].compact
+  else
+    []
+  end
 
 desc 'DEPRECATED: Run linters that are auto-correct capable'
+# TODO: Delete on next major release
 namespace :rubocop do
   task auto_correct: :'rubcocop_ci:auto_correct'
 end
