@@ -17,8 +17,9 @@ Gem::Specification.new do |s|
   s.license     = ''
 
   s.add_dependency 'coffeelint', '~> 1.16.0'
+  s.add_dependency 'cs-rubocop-git'
   s.add_dependency 'rake'
-  s.add_dependency 'rubocop', '= 0.83'
+  s.add_dependency 'rubocop', '~> 0.83.0'
   s.add_dependency 'rubocop-performance'
   s.add_dependency 'rubocop-rails', '~> 2.5.2'
   s.add_dependency 'rubocop-rspec', '= 1.19.0' # hard lock, they break semver promises
