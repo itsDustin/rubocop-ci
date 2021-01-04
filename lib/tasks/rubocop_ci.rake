@@ -56,10 +56,16 @@ def generate_rubocop_config(todo:)
   config_files = include_rails_config(config_files)
   config_files = include_todo_config(config_files) if todo
 
-  rubocop_config = Tempfile.new('rubocop')
+  rubocop_config = new_tempfile
   rubocop_config.write(YAML.dump('inherit_from' => config_files))
   rubocop_config.close
   rubocop_config.path
+end
+
+def new_tempfile
+  $tempfiles ||= []
+  $tempfiles << Tempfile.new('rubocop')
+  $tempfiles.last
 end
 
 def include_rails_config(config_files)
