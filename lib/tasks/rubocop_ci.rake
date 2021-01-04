@@ -63,9 +63,9 @@ def generate_rubocop_config(todo:)
 end
 
 def new_tempfile
-  $tempfiles ||= []
-  $tempfiles << Tempfile.new('rubocop')
-  $tempfiles.last
+  @tempfiles ||= []
+  @tempfiles << Tempfile.new('rubocop')
+  @tempfiles.last
 end
 
 def include_rails_config(config_files)
