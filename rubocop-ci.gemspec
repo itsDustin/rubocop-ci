@@ -2,32 +2,32 @@
 
 $LOAD_PATH.push File.expand_path('lib', __dir__)
 
-Gem::Specification.new do |s|
-  s.name        = 'rubocop-ci'
-  s.version     = '1.0.3'
-  s.date        = '2015-03-17'
-  s.summary     = 'Runs rubocop with our settings'
-  s.description = ''
-  s.authors     = ['ad2games GmbH']
-  s.email       = 'developers@ad2games.com'
-  s.files       = Dir['lib/**/*', 'exe/**/*']
-  s.bindir      = 'exe'
-  s.executables = %w[i18n-lint clockwork-lint]
-  s.homepage    = 'http://www.ad2games.com'
-  s.license     = ''
+Gem::Specification.new do |spec|
+  spec.required_ruby_version = '>= 3.0'
+  spec.name        = 'rubocop-ci'
+  spec.version     = '1.0.3'
+  spec.summary     = 'Runs rubocop with our settings'
+  spec.description = ''
+  spec.authors     = ['ad2games GmbH']
+  spec.email       = 'developers@ad2games.com'
+  spec.files       = Dir['lib/**/*', 'exe/**/*']
+  spec.bindir      = 'exe'
+  spec.executables = %w[i18n-lint clockwork-lint]
+  spec.homepage    = 'http://www.ad2games.com'
+  spec.license     = ''
 
-  s.add_dependency 'coffeelint', '~> 1.16.0'
-  s.add_dependency 'cs-rubocop-git'
-  s.add_dependency 'rake'
-  s.add_dependency 'rubocop', '~> 1.18'
-  s.add_dependency 'rubocop-performance'
-  s.add_dependency 'rubocop-rails', '~> 2.11.3'
-  s.add_dependency 'rubocop-rspec', '= 1.19.0' # hard lock, they break semver promises
-  s.add_dependency 'scss_lint', '~> 0.57.0'
-  s.add_dependency 'slim_lint', '~> 0.16.1'
+  spec.add_dependency 'coffeelint', '~> 1.16.0'
+  spec.add_dependency 'cs-rubocop-git'
+  spec.add_dependency 'rake'
+  spec.add_dependency 'rubocop', '~> 1.18'
+  spec.add_dependency 'rubocop-performance'
+  spec.add_dependency 'rubocop-rails', '~> 2.11.3'
+  spec.add_dependency 'rubocop-rspec', '= 1.19.0' # hard lock, they break semver promises
+  spec.add_dependency 'scss_lint', '~> 0.57.0'
+  spec.add_dependency 'slim_lint', '~> 0.16.1'
 
   # Use brakeman with less dependencies, but still have nice output
-  s.add_dependency 'brakeman-min', '~> 5.1.1'
-  s.add_dependency 'highline'
-  s.add_dependency 'terminal-table'
+  spec.add_dependency 'brakeman-min', '~> 5.1.1'
+  spec.add_dependency 'highline'
+  spec.add_dependency 'terminal-table'
 end
