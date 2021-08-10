@@ -8,12 +8,12 @@ Gem::Specification.new do |spec|
   spec.version     = '1.0.3'
   spec.summary     = 'Runs rubocop with our settings'
   spec.description = ''
-  spec.authors     = ['ad2games GmbH']
-  spec.email       = 'developers@ad2games.com'
+  spec.authors     = ['Combostrike GmbH']
+  spec.email       = 'developers@combostrike.com'
   spec.files       = Dir['lib/**/*', 'exe/**/*']
   spec.bindir      = 'exe'
   spec.executables = %w[i18n-lint clockwork-lint]
-  spec.homepage    = 'http://www.ad2games.com'
+  spec.homepage    = 'http://www.combostrike.com'
   spec.license     = ''
 
   spec.add_dependency 'coffeelint', '~> 1.16.0'
