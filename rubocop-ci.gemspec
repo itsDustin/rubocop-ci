@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'coffeelint', '~> 1.16.0'
   spec.add_dependency 'cs-rubocop-git'
   spec.add_dependency 'rake', '>= 0.13'
+  spec.add_dependency 'rails', '~> 6.1.4'
   spec.add_dependency 'rubocop', '~> 1.18'
   spec.add_dependency 'rubocop-performance'
   spec.add_dependency 'rubocop-rails', '~> 2.11.3'
