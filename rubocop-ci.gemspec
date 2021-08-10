@@ -18,13 +18,13 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'coffeelint', '~> 1.16.0'
   spec.add_dependency 'cs-rubocop-git'
-  spec.add_dependency 'rake'
+  spec.add_dependency 'rake', '>= 0.13'
   spec.add_dependency 'rubocop', '~> 1.18'
   spec.add_dependency 'rubocop-performance'
   spec.add_dependency 'rubocop-rails', '~> 2.11.3'
   spec.add_dependency 'rubocop-rspec', '= 1.19.0' # hard lock, they break semver promises
-  spec.add_dependency 'scss_lint', '~> 0.57.0'
-  spec.add_dependency 'slim_lint', '~> 0.16.1'
+  spec.add_dependency 'scss_lint', '~> 0.59.0'
+  spec.add_dependency 'slim_lint', '~> 0.22.0'
 
   # Use brakeman with less dependencies, but still have nice output
   spec.add_dependency 'brakeman-min', '~> 5.1.1'
