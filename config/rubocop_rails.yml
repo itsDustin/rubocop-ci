@@ -25,7 +25,7 @@ Rails/SaveBang:
   Enabled: true
 
 Rails/SkipsModelValidations:
-  Blacklist:
+  ForbiddenMethods:
     # - update_all
     - decrement!
     - decrement_counter

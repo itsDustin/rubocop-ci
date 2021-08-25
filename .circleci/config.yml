@@ -3,7 +3,7 @@
 # Check https://circleci.com/docs/2.0/language-ruby/ for more details
 #
 
-app-image: &app-image circleci/ruby:2.5.3-node
+app-image: &app-image circleci/ruby:3.0.2-node
 app-env: &app-env
   BUNDLE_PATH: vendor/bundle
 

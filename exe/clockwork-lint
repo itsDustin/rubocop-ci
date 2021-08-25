@@ -116,7 +116,7 @@ workers_wo_uniqueness = WorkersWithoutUniquenessList
 if workers_wo_uniqueness.any?
   warn 'Following workers are called by the Clockwork, but are missing a uniqueness setting.'
   warn 'To avoid having duplicate jobs, please, ' \
-    'pass `lock(or unique): :until_executed` to the `sidekiq_options` call.'
+       'pass `lock(or unique): :until_executed` to the `sidekiq_options` call.'
   workers_wo_uniqueness.each { |worker| puts "* #{worker}" }
 
   exit(1)

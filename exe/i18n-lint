@@ -80,7 +80,7 @@ class LocaleKeysLint < Psych::Handler
   end
 
   def correct_key_format?(value)
-    value =~ %r{\A[a-z0-9]+(?:[_\/][a-z0-9]+)*\z}
+    value =~ %r{\A[a-z0-9]+(?:[_/][a-z0-9]+)*\z}
   end
 
   def correct_key_order?(current_key)
@@ -103,7 +103,7 @@ end
 
 def sort_texts_alphabetically(data)
   case data
-  when Hash then Hash[data.sort].transform_values { |v| sort_texts_alphabetically(v) }
+  when Hash then [data.sort].to_h.transform_values { |v| sort_texts_alphabetically(v) }
   when Array then data.map { |v| sort_texts_alphabetically(v) }
   else data
   end
