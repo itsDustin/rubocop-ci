@@ -4,16 +4,16 @@ $LOAD_PATH.push File.expand_path('lib', __dir__)
 
 Gem::Specification.new do |s|
   s.name        = 'rubocop-ci'
-  s.version     = '1.0.2'
+  s.version     = '1.0.3'
   s.date        = '2015-03-17'
   s.summary     = 'Runs rubocop with our settings'
   s.description = ''
-  s.authors     = ['ad2games GmbH']
-  s.email       = 'developers@ad2games.com'
+  s.authors     = ['combostrike GmbH']
+  s.email       = 'developers@combostrike.com'
   s.files       = Dir['lib/**/*', 'exe/**/*']
   s.bindir      = 'exe'
   s.executables = %w[i18n-lint clockwork-lint]
-  s.homepage    = 'http://www.ad2games.com'
+  s.homepage    = 'http://www.combostrike.com'
   s.license     = ''
 
   s.add_dependency 'coffeelint', '~> 1.16.0'
@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'slim_lint', '~> 0.16.1'
 
   # Use brakeman with less dependencies, but still have nice output
-  s.add_dependency 'brakeman-min', '~> 4.3'
+  s.add_dependency 'brakeman-min'
   s.add_dependency 'highline'
   s.add_dependency 'terminal-table'
 end
